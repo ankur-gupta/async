@@ -50,6 +50,6 @@ markdown_extensions:
         custom_checkbox: true
     - meta
 nav:
-    - Prologue: index.md
+    - Introduction: index.md
     - Suspendables:
         - Suspendables: suspendables.md
