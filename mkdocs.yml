@@ -6,7 +6,8 @@ repo_url: https://github.com/ankur-gupta/async
 edit_uri: edit/master/docs/
 theme:
     name: material
-    language: en
+    custom_dir: overrides
+    language: en_custom
     features:
         - tabs
     palette:
@@ -54,7 +55,7 @@ nav:
         - Introduction: index.md
         - Why is it difficult?: whydifficult.md
     - Suspendables:
-        - Suspendables: suspendables.md
+        - It's all about control flow: suspendables/controlflow.md
     - Coroutines:
         - Coroutines: coroutines.md
         - Event Loop: eventloop.md
