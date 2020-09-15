@@ -50,6 +50,13 @@ markdown_extensions:
         custom_checkbox: true
     - meta
 nav:
-    - Introduction: index.md
+    - Get Started:
+        - Introduction: index.md
     - Suspendables:
         - Suspendables: suspendables.md
+    - Coroutines:
+        - Coroutines: coroutines.md
+        - Event Loop: eventloop.md
+    - Generators:
+        - Generators: generators.md
+        - Iterators: iterators.md
