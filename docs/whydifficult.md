@@ -3,7 +3,7 @@ This is unusual because Python is so easy to learn that it is used as the
 [first programming language](https://www.coursera.org/learn/learn-to-program?).
 This presents an interesting pedagogical problem:
 
-!!! Question
+!!! question "Question"
     Why is Python easy but async programming in Python difficult?
 
 The difficulty stems from the following reasons.
