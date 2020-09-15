@@ -52,6 +52,7 @@ markdown_extensions:
 nav:
     - Get Started:
         - Introduction: index.md
+        - Why is it difficult?: whydifficult.md
     - Suspendables:
         - Suspendables: suspendables.md
     - Coroutines:
