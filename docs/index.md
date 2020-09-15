@@ -1,5 +1,5 @@
 # Introduction
-There are a [lot](https://www.google.com/search?q=async+programming+python) of tutorials that
+There are a [lot of tutorials](https://www.google.com/search?q=async+programming+python) that
 teach asynchronous programming in Python. I am grateful for these tutorials, most of which are
 freely available online. However, all of these tutorials have the same didactic style –
 *they present the material in chronological order using outdated terminology*.

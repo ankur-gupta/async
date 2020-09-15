@@ -8,7 +8,9 @@ This presents an interesting pedagogical problem:
 
 The difficulty stems from the following reasons.
 
-*Feel free to skip to the next topic and come back to this page later.*
+!!! tip "Tip"
+    Some of the terms used on this page may not make sense just yet. Feel free to skip to the next
+    topic and come back to this page later.
 
 ### Async programming is *inherently* more complicated
 A *regular program*[^1] has a single[^2]
@@ -21,12 +23,16 @@ complicated than regular programming, no matter the choice of programming langua
 
 ### Python's troubled history
 Python arrived at async programming in incremental steps spread out over roughly two decades.
-*Simple generators* were proposed for Python 2.2 in 2001 via
-[PEP 255](https://www.python.org/dev/peps/pep-0255/). Since then Python has constantly
-updated the semantics and syntax associated with async programming. This trend
-continues to the present day (2020, at the time of writing) when *generator-based coroutines* are
-being [removed](https://docs.python.org/3.10/library/asyncio-task.html#generator-based-coroutines)
-from Python 3.10.
+Since the addition of simple generators in 2001, Python has constantly updated the semantics and
+syntax associated with async programming.
+
+!!! success "2001"
+    *Simple generators* were proposed for Python 2.2 via [PEP 255](https://www.python.org/dev/peps/pep-0255/).
+
+!!! success "2020"
+    *Generator-based coroutines* are being
+    [removed](https://docs.python.org/3.10/library/asyncio-task.html#generator-based-coroutines)
+    from Python 3.10.
 
 Teaching resources that were once up-to-date became stale over time. Python
 programmers had to unlearn the stale semantics and then learn the then-new semantics multiple
@@ -43,13 +49,18 @@ removal.
 ### Outdated and insufficient terminology
 Async Python programming is taught using *generators* (aka *semicoroutines*) and
 *coroutines*. The terms *generators* and *coroutines* are old.
-Generators first appeared in 1975, were a
-[prominent feature](https://en.wikipedia.org/wiki/Generator_(computer_programming)#Timeline)
-of the Icon programming language, and inspired
-[PEP 255](https://www.python.org/dev/peps/pep-0255/#motivation) in 2001.
-Coroutines were invented in 1958 and the first published
-explanation appeared in a [1963 paper](https://en.wikipedia.org/wiki/Coroutine) by
-Melvin Conway[^3] in context of the COBOL programming language and *punch cards*.
+
+!!! summary "Generators"
+    Generators first appeared in 1975, were a
+    [prominent feature](https://en.wikipedia.org/wiki/Generator_(computer_programming)#Timeline)
+    of the Icon programming language, and inspired
+    [PEP 255](https://www.python.org/dev/peps/pep-0255/#motivation) in 2001.
+
+!!! summary "Coroutines"
+    Coroutines were invented in 1958 and the first published explanation appeared in a
+    [1963 paper](https://en.wikipedia.org/wiki/Coroutine) by Melvin Conway[^3] in context of the
+    COBOL programming language and *punch cards*.
+
 Since then, coroutines have been
 [implemented](https://en.wikipedia.org/wiki/Coroutine#Implementations) in many languages with
 the implementations differing from each other due to language-specific idiosyncrasies.
