@@ -12,8 +12,8 @@ theme:
         - tabs
     palette:
         scheme: preference
-        primary: light blue
-        accent: light blue
+        primary: blue
+        accent: blue
     icon:
         logo: fontawesome/solid/random
     favicon: assets/images/favicon.svg
@@ -56,7 +56,8 @@ nav:
         - Introduction: index.md
         - Why is it difficult?: whydifficult.md
     - Suspendables:
-        - It's all about control flow: suspendables/controlflow.md
+        - Cooking is like programming: suspendables/cooking-is-like-programming.md
+        # - It's all about control flow: suspendables/controlflow.md
     - Coroutines:
         - Coroutines: coroutines/coroutines.md
         - Event Loop: coroutines/eventloop.md
