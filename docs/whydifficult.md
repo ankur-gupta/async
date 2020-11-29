@@ -93,7 +93,7 @@ and Go provides a [goroutine](https://gobyexample.com/goroutines) as a primary f
 Coroutines and generators are [radical](https://en.wikipedia.org/wiki/Goto#Coroutines)[^6] control
 flow devices when viewed from the point of view of the now well-accepted
 [structured programming](https://en.wikipedia.org/wiki/Structured_programming) paradigm.
-Both coroutines and generators retain their state while allowing the control to be trasferred away
+Both coroutines and generators retain their state while allowing the control to be transferred away
 from themselves. However, Python generators and Python (native) coroutines provide very different
 types of control flow. A Python generator provides a more definitive transfer of control
 compared to a Python (native) coroutine. This difference in control flow is a very
