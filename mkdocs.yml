@@ -54,9 +54,12 @@ markdown_extensions:
 nav:
     - Get Started:
         - Introduction: index.md
-        - Why is it difficult?: whydifficult.md
+        - Why is it difficult?: why-is-it-difficult.md
     - Suspendables:
         - Cooking is like programming: suspendables/cooking-is-like-programming.md
+        - Suspendables: suspendables/suspendables.md
+        - Control: suspendables/control.md
+        - Syntax: suspendables/syntax.md
         # - It's all about control flow: suspendables/controlflow.md
     - Coroutines:
         - Coroutines: coroutines/coroutines.md

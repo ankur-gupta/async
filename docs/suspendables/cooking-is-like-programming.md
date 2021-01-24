@@ -1,10 +1,10 @@
 # Cooking is like programming
 It is easier to understand async python programming if we temporarily forget about the
-[structured control flow](https://en.wikipedia.org/wiki/Structured_programming) in
+[structured control flow](https://en.wikipedia.org/wiki/Structured_programming) as it exists in
 contemporary programming. This is easier said than done.
 Most of us are so well-versed with these common control flow constructs
 (such as *functions*) that it is difficult for us to completely let go of these ideas.
-So, we use a trick. Cooking is surprisingly similar to programming. We will use cooking as
+So, let's use a trick. Cooking is surprisingly similar to programming. We will use cooking as
 an example to motivate the need for something called a *suspendable*, which we will define in
 the next page.
 
@@ -12,16 +12,17 @@ the next page.
 Let's say we invent a completely new baked good and we name it *eagle crumpet*. Our first 10
 attempts to make eagle crumpet required a lot of experimentation — we needed to adjust the
 amount of ingredients and we had to play around with the oven temperature and timing.
-After the first 10 attempts, we perfected our invention — it's 50% tastier than a crumpet
-and 100% more awesome than a bear claw!
+After the first ten or so attempts, we perfected our invention — it's 50% tastier than a
+*regular crumpet* and 75% more awesome than a *bear claw*!
 
-We need to save the results from our experimentation so we don't have to redo the experiments
-next time. What we need is *an ordered sequence of instructions* or a *recipe* to make an
-*eagle crumpet* perfectly at every future attempt. A recipe may be reminiscient of a *function*
-in programming but the word *recipe* does not come with predefined, hard-to-disassociate
+We need to save the results from our experimentation so we don't have to repeat the
+experimentation every time we want to make an eagle crumpet.
+What we need is *an ordered sequence of instructions* or a *recipe* describing how
+to make an *eagle crumpet* perfectly at every future attempt. A recipe may be reminiscient of a
+*function* in programming but the word *recipe* does not come with predefined, hard-to-disassociate
 implications that come with using the word *function*.
 
-Let's make two other food items using recipes — a salad and mashed potatoes.
+Let's make two other food items using recipes — salad and mashed potatoes.
 
 ## Salad
 We can write the *recipe* for a very simple salad using the following pseudocode:
@@ -53,9 +54,9 @@ mashed potatoes written using pseudocode:
 As before, let's assume that a single person executes above recipe. The first two steps are
 simple enough — peel and cut potatoes. The third step (boiling the cut and peeled potatoes) is
 where the complexity arises. Unlike the salad recipe, we must cut and peel the potatoes before
-we boil them[^2]. Thus, the order of steps is important. However, more importantly, boiling the
+we boil them[^2]. Thus, the order of steps is important. More importantly, boiling the
 potatoes takes 15 minutes during which the cook is idle but the cook cannot proceed to the
-fourth step of mashing the boiled potatoes. Thus, the cook has to wait until the potatoes are
+fourth step of mashing the boiled potatoes. Thus, the cook *must* wait until the potatoes are
 boiled.
 
 ## Salad & Mashed Potatoes
@@ -78,7 +79,7 @@ a *suspendable* recipe. The same motivation applies to *functions* in programmin
 
 ## Footnotes
 [^1]:
-    The `make_salad` example is, in fact, an ideal use-case for threads. Multithreading was available [before](https://en.wikipedia.org/wiki/Thread_(computing)) multicore processors were available with the primary motivation to interleave unrelated tasks on the single CPU core. See [Thinking Outside the Synchronisation Quadrant - Kevlin Henney - YouTube](https://www.youtube.com/watch?v=2yXtZ8x7TXw&feature=emb_title).
+    The `make_salad` example is, in fact, an ideal use-case for threads. Multithreading was available [before](https://en.wikipedia.org/wiki/Thread_(computing)) multicore processors were available. The primary motivation for multiple threads back then was to interleave unrelated tasks on the single CPU core. See [Thinking Outside the Synchronisation Quadrant - Kevlin Henney - YouTube](https://www.youtube.com/watch?v=2yXtZ8x7TXw&feature=emb_title).
 [^2]:
     It is well-known that boiling uncut and unpeeled potatoes makes for a poorer recipe.
 [^3]:

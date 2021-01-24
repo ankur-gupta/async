@@ -4,11 +4,11 @@ teach asynchronous programming in Python. I am grateful for these tutorials, mos
 freely available online. However, all of these tutorials have the same didactic style –
 *they present the material in chronological order using outdated terminology*.
 
-This didactic style makes it *unreasonbly* difficult to learn async Python programming.
+This didactic style makes it *unreasonably* difficult to learn async Python programming.
 I found the tutorials on async programming for other programming languages to be more informative
 than the ones for Python. This made me realize that async programming in
-Python is actually quite straightforward if it is taught in a different way. That's what led me to
-write this *self-study* course on *Asynchronous Python Programming*.
+Python could be made quite straightforward only if it was taught in a different way.
+That's what led me to design this *self-study* course on *Asynchronous Python Programming*.
 
 ## Course Requirements
 * Proficiency in Python syntax
@@ -17,8 +17,8 @@ write this *self-study* course on *Asynchronous Python Programming*.
 
 ## Time Commitment
 This course is divided into 4 chapters, shown as top-level tabs. Depending upon your previous
-experience with async programming (in any language), it may take your 2 hours to 2 days to
-finish the material.
+experience with async programming (in any language), it may take you anywhere between 2 hours to
+2 days to finish the material.
 
 ## Terminology
 We use a different terminology than what is commonly used.
