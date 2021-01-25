@@ -4,18 +4,18 @@
 A forthright answer to this question is essential to prevent avoidable confusion.
 Unfortunately, most python teaching resources shy away from expressly discussing the question of
 control flow, as we alluded to in the [beginning](/why-is-it-difficult/#underhanded-treatment-of-control-flow-and-state).
+
 In this course, we use new nomenclature to understand the answer to this question.
+Specifically, we define two subtypes of suspendables based on how control is transferred
+away from a suspendable. These two substypes are called *Explicit Control Transfer Suspendables*
+and *Implicit Control Transfer Suspendables*.
 
-Specifically, we define two subtypes of suspendables based on how control is transferred from
-away from a suspendable. These two substypes are called Explicit Control Transfer Suspendables
-and Implicit Control Transfer Suspendables.
-
-We use python-like pseudocode instead of real python code throughout this page. This is unavoidable
+We use python-like pseudocode instead of real python code throughout this page. This is necessary
 because in order to use real python code, we will need to define proper syntax, which is
-non-trivial as discussed [next](/suspendables/syntax/).
+non-trivial, as discussed in the [next section](/suspendables/syntax/).
 
 ## Explicit Control Transfer Suspendables
-Let's re-consider our [Salad & Mashed Potatoes](/suspendables/cooking-is-like-programming/#salad-mashed-potatoes)
+Let's re-visit our [Salad & Mashed Potatoes](/suspendables/cooking-is-like-programming/#salad-mashed-potatoes)
 example from before. We previously noted that making `make_mashed_potatoes` a suspendable function
 would be more efficient because we can execute `make_salad` while the potatoes are boiling.
 In order to do so, we need to break up the `boil_potatoes` function into three pieces:
@@ -315,8 +315,49 @@ Some other suspendable functions, such as those involving network requests or di
 almost always require an event loop to run efficiently. It is rare for these functions to be run
 outside an event loop, unless it is for
 [educational purposes](https://stackoverflow.com/questions/52783605/how-to-run-a-coroutine-outside-of-an-event-loop).
-There is a natural distinction between the type of suspendable functions requiring an event loop
-and those who don't.
+
+While there is a natural distinction between the type of suspendable functions that require
+an event loop and those who don't, there appears to be no reason why the syntax for explicit
+and implicit control transfer suspendables should be different. It is somewhat reasonable to
+expect that a programming language provide only one type of suspendable function with the same
+set of reserved keywords for both explicit and implicit control transfer and that a
+suspendable function's control transfer can be made explicit or implicit based on whether
+or not it interacts with an event loop.
+
+This happens to *not* be the case with python, as of writing this course. The following table
+describes how python 3.8.5+ bifurcates the concept of suspendables into two specialized
+entities, each with its own set of keywords.
+
+| Item                        | Pseudocode (Explicit & Implicit) | Python (Explicit) | Python (Implicit) |
+|-----------------------------|----------------------------------|-------------------|-------------------|
+| Name                        | Suspendable                      | Generator         | Coroutine         |
+| Requires event loop         | Yes & No                         | No                | Yes               |
+| Function definer            | `function`                       | `def`             | `def`             |
+| Suspendable modifier        | `suspendable`                    | -                 | `async`           |
+| Control transfer to caller  | `release control`                | `yield`           | -                 |
+| Control transfer to another | `release control to`             | `yield from`      | `await`           |
+
+Explicit control transfer suspendables become python generators and implicit control transfer
+suspendables become coroutines[^7]. The reason for this bifurcation of suspendables into explicit
+and implicit control transfer suspendables is complicated involving syntactical, historical,
+and cleaner design considerations. Just after [PEP 342](https://www.python.org/dev/peps/pep-0342/),
+the same `yield from` syntax was used for both generators (explicit) and coroutines (implicit).
+But, using the same syntax for both generators and coroutines created
+[problems](https://bugs.python.org/issue24400) and a lot of confusion, as mentioned in
+[PEP 492](https://www.python.org/dev/peps/pep-0492/#rationale-and-goals). PEP 492 finally
+separated coroutines from generators. We will discuss some of these syntactical, historical,
+and design considerations for both generators and coroutines later in the course.
+
+One weird artifact of this bifurcation is that python may allow a suspendable to be
+both explicit and implicit at the same time. This is what python calls
+asynchronous generators, as described in this [bug report](https://bugs.python.org/issue27243)
+and discussed in
+[PEP 492](https://www.python.org/dev/peps/pep-0492/#why-aiter-does-not-return-an-awaitable).
+We will discuss this oddity later in the course.
+
+## We're not done yet
+Before we begin discussing python generators and coroutines, we need to solve the problem of
+defining unambiguous syntax for suspendables.
 
 ## Footnotes
 [^1]:
@@ -360,3 +401,7 @@ and those who don't.
 [^6]:
     A memory-efficient, boundless iterator (such as Python 3's `range`) is a common real-world
     example of a suspendable function that does not benefit from an event loop.
+
+[^7]:
+    We are purposefully ignoring the existence of generator-based coroutines. See footnote
+    [5](/suspendables/control/#fn:5) on this page.
