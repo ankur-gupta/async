@@ -60,10 +60,9 @@ nav:
         - Suspendables: suspendables/suspendables.md
         - Control: suspendables/control.md
         - Syntax: suspendables/syntax.md
-        # - It's all about control flow: suspendables/controlflow.md
-    - Coroutines:
-        - Coroutines: coroutines/coroutines.md
-        - Event Loop: coroutines/eventloop.md
     - Generators:
         - Generators: generators/generators.md
         - Iterators: generators/iterators.md
+    - Coroutines:
+        - Coroutines: coroutines/coroutines.md
+        - Event Loop: coroutines/eventloop.md
