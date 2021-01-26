@@ -4,6 +4,7 @@ site_description: >-
 repo_name: ankur-gupta/async
 repo_url: https://github.com/ankur-gupta/async
 edit_uri: edit/master/docs/
+copyright: Copyright &copy; Ankur Gupta
 theme:
     name: material
     custom_dir: overrides
@@ -17,6 +18,14 @@ theme:
     icon:
         logo: fontawesome/solid/random
     favicon: assets/images/favicon.svg
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ankur-gupta
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/ankurguptawisc
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/ankurio
 extra_css:
     - stylesheets/extra.css
 plugins:
@@ -60,6 +69,7 @@ nav:
         - Suspendables: suspendables/suspendables.md
         - Control: suspendables/control.md
         - Syntax: suspendables/syntax.md
+        - Review: suspendables/review.md
     - Generators:
         - Generators: generators/generators.md
         - Iterators: generators/iterators.md
