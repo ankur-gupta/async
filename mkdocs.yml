@@ -1,4 +1,4 @@
-site_name: Async Programming in Python
+site_name: Asynchronous Programming in Python
 site_description: >-
     Asynchronous Programming in Python made easy.
 repo_name: ankur-gupta/async
@@ -71,8 +71,13 @@ nav:
         - Syntax: suspendables/syntax.md
         - Review: suspendables/review.md
     - Generators:
-        - Generators: generators/generators.md
-        - Iterators: generators/iterators.md
+        - Introduction: generators/introduction.md
+        - A Better Way to Drive: generators/a-better-way-to-drive.md
+        - Generator Class: generators/generator-class.md
+        - Mechanics by Examples: generators/mechanics-by-examples.md
+        - yield from: generators/yield-from.md
+        - Examples: generators/examples.md
+        - History: generators/history.md
     - Coroutines:
         - Coroutines: coroutines/coroutines.md
         - Event Loop: coroutines/eventloop.md

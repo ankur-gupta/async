@@ -170,8 +170,8 @@ asking: *why do we even need suspendable functions at all if we can just use cla
 
 The answer to this question is anti-climactic: *suspendable entities are not essential*.
 We could do asynchronous programming using other constructs such as classes or callbacks.
-In fact, the above `CountHello` class is a rudimentary implementation of a python generator (LINK TO AN EXAMPLE),
-which we will study later in the course.
+In fact, the above `CountHello` class is a rudimentary implementation of a python generator,
+which we will study [later](/generators/generator-class/) in the course.
 
 ### Verbosity & Mental Model
 Our pseudocode examples ignored syntax ambiguities. But when programming in python, we want
