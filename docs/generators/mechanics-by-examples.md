@@ -2,7 +2,7 @@
 Curious readers may have lots of questions on how exactly `yield` behaves. Let's answer them with
 examples.
 
-## `yield` under an impossible `if` branch
+## `yield` under an impossible branch
 In [Introduction](/generators/introduction/), we said that a syntactically reachable `yield`
 within a function makes it a generator function. The important word is *syntactically*. So,
 even if a `yield` statement is inside a never-to-be-executed `if` branch, such as shown below,
@@ -49,8 +49,8 @@ def real_world_function():
 ```
 There is no way of knowing whether `some_variable.some_method()` would be considered equivalent
 to `True` or not. What if `some_variable.some_method()` uses pseudo random numbers and can return
-a `True`-equivalent[^2] during some runs and a `False`-equivalent during some other runs?
-Even if `some_variable.some_method()` does not use random numbers, code changes in this
+a `True`-equivalent[^true-equivalent] during some runs and a `False`-equivalent during some other
+runs? Even if `some_variable.some_method()` does not use random numbers, code changes in this
 method would affect which branch of `if-else` is executed inside `real_world_function`.
 
 Programmers would also face the same exact problem as the interpreter. How would you write the
@@ -78,7 +78,7 @@ still prevent `frequently_edited_gen_fun` from becoming a simple function.
 
 MENTION THAT REJECTED PIP HERE (COFUNCTIONS, WAS IT?).
 
-LINK TO `yield` after a `return`.
+See yet another example in [`return` before a `yield`](#return-before-a-yield).
 
 
 ## Must we return something with `yield`?
@@ -109,34 +109,106 @@ no_return_value() is None
 ```
 
 ## `yield` is an expression
-LINK TO THE PEP THAT SHOWS THIS
+Since [PEP 342](https://www.python.org/dev/peps/pep-0342/#specification-summary), `yield` is
+an expression rather than a statement, even if it can be used in a statement form.
 
-DIFFERENTIATE BETWEEN STATEMENT AND EXPRESSION. LINK TO LAMBDA LATER.
+```python
+def yield_is_an_expression():
+    product_value = (yield 1) * (yield 2)  # expression form
+    yield 3  # statement form
+```
+The above code is legal syntax. You should try this out yourself because things will become
+murky in a moment. We've [already](/generators/introduction/#yield-is-a-two-way-street) seen
+that we can send value into a a generator via the `yield` keyword. The above generator function
+seems to compute `product_value` as a sum of two `yield` expressions. Only difference is
+that this time the expressions are wrapped in parentheses. This is also important. Thw following
+statements list the rules of engagement when it comes to `yield`.
+
+1. `yield` is always an expression, even if it can be written in a statement form
+   (like a `return` statement)
+2. `yield` expressions almost always require parentheses with two known exceptions. Overuse of
+   parentheses is encouraged.
+3. Every `yield` expression has a value, even if the value is `None`.
+
+Let's look at an example that is easier to run than the one above. We'll discuss why this
+example is easier than the one above in a moment.
 
 ```python
 def fill_list_using_yields():
     list_value = [(yield), (yield)]
     print('list_value={}'.format(str(list_value)))
     yield
+```
 
+### Drive using `next`
+We can drive the above generator in at least two ways, one is using `next` and the other using
+`send`. Let's see `next` first.
+
+```python
 z = fill_list_using_yields()
 z_value_1 = next(z)
 z_value_2 = next(z)
 z_value_3 = next(z)
 # list_value=[None, None]
 ```
-We [previously](/generators/introduction/#yield-is-a-two-way-street) saw that `yield`
-can accept value as well. FILL ME IN
+In the above snippet, we didn't explicitly send any value to the generator and it appears that
+the generator assumed that we sent back `None`s. There is an important but simple reason for this.
+Calling the `next` function calls the `__next__` method. If this `__next__` is the
+[default method](https://github.com/python/cpython/blob/23a567c11ca36eedde0e119443c85cc16075deaf/Lib/_collections_abc.py#L326)
+(which is [indeed](/generators/generator-class/) the case for `fill_list_using_yields`),
+then `__next__` simply
+[calls](https://www.python.org/dev/peps/pep-0342/#new-generator-method-send-value)
+the `send` method with a `None` argument. Thus, calling `next(z)` is equivalent to calling
+`z.__next__()`, which is equivalent to calling `z.send(None)`. This clarifies why `list_value`
+contains `None`s. If we were to redefine `__next__`, perhaps by
+[defining](/generators/generator-class/#minimal-example-from-scratch)
+a generator class, then the outcome could've been different.
 
-Typically, we send back values to the generator using the `send` method. Calling the `next`
-function calls the `__next__` method. If this `__next__` is the default method (LINK ME TO SOURCE),
-then `__next__` simply calls the `send` method with `None`. Thus, calling `next(z)` is
-equivalent to `z.__next__()` which is equivalent to calling `z.send(None)`. This explains
-why `list_value` contains `None`s.
+### Drive using `send`
+Let's look at `send` now. When we use the `send` method, we explicitly send back a value
+to the generator. Expectedly, trying to call `send` without any argument fails.
 
+```python
+fill_list_using_yields().send()
+# TypeError: send() takes exactly one argument (0 given)
+```
+Let's try sending some value.
 
+```python
+fill_list_using_yields().send('hello, generator')
+# TypeError: can't send non-None value to a just-started generator
+```
+This also failed! In a way, it's good that this failed. In the above snippet, we're calling
+`send` on a fresh generator object `fill_list_using_yields()` which hasn't yet started
+executing. This means that the execution hasn't yet reached the first `yield` point. Only
+`yield` expressions can receive a value using `send`. So, the above snippet attempts to send
+the value `'hello, generator'` even though the generator is not yet ready to receive the value.
+This is why we must send a value that is completely useless and `None` uniquely
+quailifies[^priming]. This is called *priming the generator*.
 
-Note that `yield` must be surrounded with parentheses. For example, this would fail.
+Let's try again. This time, we'll send `None` the first time, and some other values second and
+third time.
+
+```python
+w = fill_list_using_yields()
+w_value_1 = w.send(None)  # = next(w)
+w_value_2 = w.send('alpha')
+w_value_3 = w.send(3659)
+# list_value=['alpha', 3659]
+
+print(w_value_1)
+# None
+print(w_value_2)
+# None
+print(w_value_3)
+# None
+```
+Voila! `list_value` was updated with the values we sent.
+
+### Parentheses are important
+Removing the parentheses from the first two `yield` expressions would result in an immediate
+syntax error.
+
 ```python
 def fill_list_using_yields_wrong():
     list_value = [yield, yield]
@@ -148,8 +220,71 @@ def fill_list_using_yields_wrong():
 # SyntaxError: invalid syntax
 ```
 
-We could've chosen to send back values. Let's see this using another example. As before,
-`yield` must be wrapped within parentheses.
+A `yield` expression must be enclosed within parentheses with only two exceptions, as shown
+below.
+
+```python
+def yield_parentheses_exceptions():
+    # Exception I: you can skip the parentheses
+    value_1 = yield
+    value_2 = yield 42
+
+    # Exception II: you can skip the parentheses
+    yield
+    yield 42
+
+    # Not Exceptions: you must use parentheses
+    value_3 = 12 + (yield)
+    value_3 = 12 + (yield 42)
+    print((yield))  # This is what PEP 342 gets wrong
+    isinstance((yield), dict)  # This is what PEP 342 gets wrong
+```
+Note the use of double parentheses in `print((yield))` above. This is necessary even though
+[PEP 342](https://www.python.org/dev/peps/pep-0342/#new-syntax-yield-expressions) says otherwise.
+Sadly, PEP 342 is outdated and contains some incorrect information. When in doubt, the
+[documentation](https://docs.python.org/3/reference/expressions.html#yield-expressions)
+for your python version should provide some guidance.
+
+### Why was the first example more difficult to run?
+This is simply because calling `next` on `yield_is_an_expression` would fail on the
+third try.
+
+```python
+q = yield_is_an_expression()
+next(q)
+# 1
+next(q)
+# 2
+next(q)
+# TypeError: unsupported operand type(s) for *: 'NoneType' and 'NoneType'
+```
+Calling `next` is equivalent to calling `send(None)`, as we saw
+previously. Eventually, the generator would attempt to compute `product_value` as the product
+of two `None`s which is unsupported, regardless of generators. This problem is not just
+for `None`s; we can recreate the problem if we sent back a `dict` and a `list`.
+
+```python
+e = yield_is_an_expression()
+next(e)  # prime the generator
+# 1
+e.send({'a'})
+# 2
+e.send([1])
+# TypeError: can't multiply sequence by non-int of type 'set'
+```
+So, in order to drive `yield_is_an_expression`, we must send back values that support the
+product operation, such as `['a']` and `3`.
+
+```python
+f = yield_is_an_expression()
+next(f)
+# 1
+f.send(['a'])
+# 2
+f.send(3)  # no error
+```
+The following is another working example that may be helpful because it shows the order in
+which data is sent back and forth.
 
 ```python
 def sum_of_yields():
@@ -158,9 +293,9 @@ def sum_of_yields():
     yield
 
 w = sum_of_yields()
-w_value_1 = next(w)  # See next question to see why we have to call next first.
-# send first value
+w_value_1 = next(w)
 print(w_value_1)
+# send first value
 
 w_value_2 = w.send(100)
 print(w_value_2)
@@ -172,97 +307,47 @@ print(w_value_3)
 # None
 ```
 
+## Can a function have both `yield` and `return`?
+Yes, it can. Let's see two cases.
 
-
-## Can a function have multiple `yield`s?
-Yes. We will use this section to describe how `next` and `send` work.
-
+### `return` before a `yield`
+Even if we put a `return` before the first `yield`, the resulting function is still a generator
+function.
 ```python
-def multiple_yields():
-    print('Entering')
-    yield 1
-    print('After first yield')
-    yield 2
-    print('Exiting')
-```
+def return_before_yield():
+    print('Beginning')
+    return
+    print('After return but before yield')
+    yield
+    print('End')
 
-We can drive the above generator using `next`.
+weird_gen_object = return_before_yield()
+print(weird_gen_object)
+# <generator object return_before_yield at 0x10807a120>
 
-```python
-gen_object_1 = multiple_yields()
-value_1 = next(gen_object_1)
-# Entering
-print(value_1)
-# 1
-
-value_2 = next(gen_object_1)
-# After first yield
-print(value_2)
-# 2
-
-value_3 = next(gen_object_1)
-# Exiting
+next(weird_gen_object)
+# Beginning
 # ---------------------------------------------------------------------------
 # StopIteration                             Traceback (most recent call last)
-# <ipython-input-8-56c83a1da170> in <module>
-# ----> 1 value_3 = next(gen_object_1)
+# <ipython-input-79-a5dbbac1bc45> in <module>
+# ----> 1 next(weird_gen_object)
 
 # StopIteration:
-print(value_3)
-# NameError: name 'value_3' is not defined
 ```
-Calling `next` the first time executes the code
-starting from the beginning of the generator function to the first yield point, returns the
-yielded value, and suspends execution. A second `next` call on the same generator object,
-resumes execution just after the first yield and executes until the second yield point while
-returning the second yield value. The third `next` call resumes execution just after the second
-yield point and then executes hoping to find yet another yield, which it does not and so throws
-the `StopIteration` error.
+This is another case of
+[yield under an impossible branch](#yield-under-an-impossible-branch).
+Obviously, we will never to reach the `yield` point because the generator function will return
+permanently when it reaches `return`.
 
-LINK TO THE PEP THAT TALKS ABOUT THE StopIteration error.
+### `return` after all `yield`s
+FILL ME IN
 
-We can also drive the same generator using the `send` method instead. We saw
-[previously](/generators/generator-class/) that
-the `next` function simply calls the object's `__next__` method, which in turn, simply calls
-`send(None)`. Before we discuss the correct way to call the `send` method, let's see some of the
-wrong ways.
-
-```python
-gen_object_2 = multiple_yields()
-gen_object_2.send()
-# TypeError: send() takes exactly one argument (0 given)
-```
-
-Send requires one argument. We must send something. Let's try sending `'hello'`.
-
-```python
-gen_object_3 = multiple_yields()
-gen_object_3.send('hello')
-# TypeError: can't send non-None value to a just-started generator
-```
-We can't send `'hello'` either. This is an important point.
-In the above snippet, `gen_object_3` hasn't started execution and is not suspended anywhere.
-A `send` call must correspond to
-a suspended yield point. In the above snippet, `gen_object_3` hasn't been suspended yet (it
-hasn't even begun yet) and therefore
-
-At this point, curious readers may have lots of questions. For example, how many yield statements
-can we have, can a function have both yield and return statements, what is meant by syntactically
-reachable, what if we have a yield in only one of the `if-else` branches.
-
-
-```python
-def yield_and_return():
-    print('Entering')
-    yield 1
-    print('After first yield')
-    yield 2
-    print('Exiting')
-    return 3
-```
+## `StopIteration` error
+FILL ME IN
 
 ## Can `yield` be outside a function?
-No[^yield-outside-a-function]. This can be easily checked.
+No[^yield-outside-a-function]. This can be easily checked and is mentioned in the
+[documentation](https://docs.python.org/3/reference/expressions.html#yield-expressions).
 
 ```python
 yield 1
@@ -271,96 +356,164 @@ yield 1
 #     ^
 # SyntaxError: 'yield' outside function
 
+(yield 1)
+#   File "<ipython-input-80-4cb37392add7>", line 1
+#     (yield 1)
+#      ^
+# SyntaxError: 'yield' outside function
+
 class A:
-    yield 1
-#   File "<ipython-input-14-3d7af3485611>", line 2
-#     yield 1
-#     ^
+    (yield 1)
+#   File "<ipython-input-81-f2ee79229f43>", line 2
+#     (yield 1)
+#      ^
 # SyntaxError: 'yield' outside function
 ```
 
 ## Can a `lambda` contain a `yield`?
-Yes. But, we must use `yield` as an expression instead of a statement.
+Yes. But, we must use `yield` within [parentheses](#yield-is-an-expression).
 
 ```python
-gen_function_via_lambda = lambda: (yield 1)
+# Fails
+lambda x: yield 'whatever'
+# SyntaxError: invalid syntax
 
+# Works
+gen_function_via_lambda = lambda: (yield 1)
 print(type(gen_function_via_lambda()))
 # <class 'generator'>
 ```
-
-Link to this snippet:
-https://github.com/python/cpython/blob/23a567c11ca36eedde0e119443c85cc16075deaf/Lib/_collections_abc.py#L62
+In fact,
+[python source](https://github.com/python/cpython/blob/23a567c11ca36eedde0e119443c85cc16075deaf/Lib/_collections_abc.py#L62)
+uses a `lambda` to obtain `generator` type for
+[use](https://github.com/python/cpython/blob/23a567c11ca36eedde0e119443c85cc16075deaf/Lib/_collections_abc.py#L370)
+for `collections.abc.Generator`.
 ```python
 generator = type((lambda: (yield))())
+print(generator)
+# <class 'generator'>
 ```
 
+## Can you put a `yield` within a simple function?
+The answer to this question seems to be "no", given that we hammered
+[this point](/generators/introduction/#brevity-has-its-costs) repeatedly.
+But, this is a trick question, perhaps, for job interviews. Think about it and then click on
+**Answer** below to check for one possible answer.
+
+??? Answer
+    Yes, just put the `yield` within another function inside a simple function.
+    ```python
+    def this_is_a_simple_function():
+        print('Entering simple function')
+        def this_is_a_generator_function():
+            print('Entering generator function')
+            yield 1
+            print('Exiting generator function')
+        print('Exiting simple function')
+        return 'done'
+
+    output = this_is_a_simple_function()
+    # Entering simple function
+    # Exiting simple function
+
+    print(output)
+    # done
+    ```
+
+## Can a simple function return a generator object?
+Another trick question for job interviews. Think about it and then click on **Answer** below.
+
+??? Answer
+    Yes. See below.
+    ```python
+    def simple_function_returns_gen_object():
+        print('Entering simple function')
+        def generator_function():
+            print('Entering generator function')
+            yield 1
+            print('Exiting generator function')
+        print('Exiting simple function')
+        return generator_function()
+
+    obj = simple_function_returns_gen_object()
+    # Entering simple function
+    # Exiting simple function
+
+    print(obj)
+    # <generator object simple_function_returns_gen_object.<locals>.generator_function at 0x107fe19e0>
+    ```
+
+    This demonstrates an important point. Just because a function `f` returns a generator object
+    does not mean that `f` is guaranteed to be a generator function.
 
 
 
+## Can a simple function return a generator object *without using `yield` inside it*?
+Another trick question for job interviews. Think about it and then click on **Answer** below.
 
-EXAMPLES  - burniong questions
+??? Answer
+    Yes. Just move the generator function out.
+    ```python
+    def some_generator_function():
+        yield 1
 
+    def simple_function_no_yield():
+        print('Entering simple function')
+        print('Exiting simple function')
+        return some_generator_function()
 
+    obj = simple_function_no_yield()
+    # Entering simple function
+    # Exiting simple function
 
-3. Multiple `yield`s
-5. `yield` with `return`, `yield` after a `return`
-6. `yield` within a function within a function
-7. `yield` in a lambda. Mention Kotlin.
-8. Trick interview Q1: write a function that returns a generator function without using yield within the function.
-   Ans: Write a generator class and in another function return an object of the class.
-9. Trick interview Q1: write a function that returns a generator function without using a class or yield within the function. Ans: Either define a a generator function separately (or use `range` which is a generator already)
-    and return the generator function. CAUTION: `range` is not a generator.
+    print(obj)
+    # <generator object some_generator_function at 0x10810aba0>
+    ```
+## Can a simple function return a generator object without using `yield` *at all*?
+Another trick question for job interviews. Think about it and then click on **Answer** below.
 
-(done) 2. Can a `yield` be outside a funtion?
-(done) 1. `yield` under a `if False`, `yield` under a random-chanced `if` branch.
-(done) 4. Must we return something with yield?
+??? Answer
+    Yes. Define a [generator class](/generators/generator-class/#improved-example-using-abc)
+    which avoids the use of `yield`.
+    ```python
+    from collections.abc import Generator
 
+    def simple_function_no_yield_self_contained():
+        print('Entering simple function')
+        class SomeGeneratorClass(Generator):
+            def send(self, value):
+                super().send(value)
+            def throw(self, typ, val=None, tb=None):
+                super().throw(typ, val, tb)
 
+        print('Exiting simple function')
+        return SomeGeneratorClass()
 
+    obj = simple_function_no_yield_self_contained()
+    # Entering simple function
+    # Exiting simple function
 
-
-
-
-
-THIS SHOULD BE A NEW SUBSECTION IN THIS PAGE
-The above class also shows us exactly how `send` works, even though we didn't actually use it.
-Let's see another example.
-
-
-When a generator function is written to receive a value from a yield expression but the caller
-does not send any value, it is assumed that a None is sent.
-
-
-also helps understand send, next, `StopIteration` etc.
-
-
-
-
-
-## `send` mechanics
-`send` is a very important feature of the generator. You can *drive* a generator by using `send`
-alone, even when the generator is not written to receive a value from the caller.
-Consider the following example.
-
-```python
-def drive_by_send():
-    yield 1
-    yield 2
-    value = (yield) + (yield)
-    print('sum of last two received values = {}'.format(value))
-    yield 5
-```
-
+    print(obj)
+    # <__main__.simple_function_no_yield_self_contained.<locals>.SomeGeneratorClass object at 0x107f92d90>
+    ```
 ## Footnotes
-[^yield-outside-a-function]:
-    Think of `yield` as a fish. It cannot survive outside the waters of a `function`.
-
 [^pick-a-side-yield]:
     It's like we can never win with `yield`. Pick a side, `yield`!
 
-[^2]:
+[^true-equivalent]:
     We don't always need something to evaluate to `True` to choose the `if` branch instead of the
     `else` branch. For example, non-zero `int`s or `float`s, non-empty lists, and non-empty
     strings all evaluate to `True`. Similarly, `0`, empty lists, and empty strings evaluate to
     `False`.
+
+[^priming]:
+    You could argue that we could've allowed sending `'hello, generator'` the first time and
+    then just thrown it away. That would certainly be possible but it would make for a poorer
+    design. First, every programmer could send something different leading to unnecessary
+    and useless magic strings in the code. Second, anybody reading the code would be confused
+    as to why a particular first, throwaway value was chosen and whether or not it had any
+    significance. And, finally, unnecessarily sending an object only to be thrown away would waste
+    computation.
+
+[^yield-outside-a-function]:
+    Think of `yield` as a fish. It cannot survive outside the waters of a `function`.

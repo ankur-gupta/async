@@ -139,7 +139,7 @@ y.close()
 ```
 
 ## Running cost *vs* fixed cost
-Note how much more verbose and complicated `MySimpleRange` is compared to `my_simple_range`.
+Notice how much more verbose and complicated `MySimpleRange` is compared to `my_simple_range`.
 For the generator class, we needed to inherit from `Generator`,
 write a constructor method, write a send method that raises `StopIteration`, write a `throw`
 method even if all it does is call its super, and then link all of these things together
