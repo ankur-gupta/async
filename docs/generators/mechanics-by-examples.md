@@ -337,11 +337,16 @@ next(weird_gen_object)
 This is another case of
 [yield under an impossible branch](#yield-under-an-impossible-branch).
 Obviously, we will never to reach the `yield` point because the generator function will return
-permanently when it reaches `return`.
+permanently when it reaches `return`. Thus, when `return` is before all the `yield`s, then the
+function is a generator function and has to be *driven* like a generator but behaves partially
+like a simple function by permanently returning when it hits `return`.
 
 ### `return` after all `yield`s
 FILL ME IN
 
+See https://www.python.org/dev/peps/pep-0380/:
+
+`return value` = `raise StopIteration(value)`
 ## `StopIteration` error
 FILL ME IN
 
