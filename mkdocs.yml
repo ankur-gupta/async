@@ -22,6 +22,8 @@ extra:
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/ankur-gupta
+    - icon: fontawesome/brands/pied-piper-alt
+      link: https://www.perfectlyrandom.org
     - icon: fontawesome/brands/linkedin
       link: https://www.linkedin.com/in/ankurguptawisc
     - icon: fontawesome/brands/twitter

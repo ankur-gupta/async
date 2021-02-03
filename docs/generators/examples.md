@@ -65,7 +65,8 @@ protocol, we don't need any special syntax when using `generator_range` in a `fo
 
 ### Unbounded `range`
 Generator-based approach allows us to generate integers unboundedly. interestingly, this is
-even simpler than our `generator_range` above.
+even simpler than our `generator_range` above. This was clearly not possible if we use a
+naive list-based approach.
 
 ```python
 def unbounded_range(start):
@@ -95,10 +96,18 @@ for i in unbounded_range(0):
 # ...
 # 11
 ```
-This was clearly not possible if we use a naive list-based approach.
 
 ## Random number generator
 Another surprising perfect fit for generators is a random number generator.
 Random number generators are typically state machines.
+
+```python
+def discrete_uniform_lgc(seed=894965, modulus=2**32,
+                         coeff=1664525, constant=1013904223):
+    x = seed
+    while True:
+        x = (coeff * x + constant) % modulus
+        yield x
+```
 
 FILL ME

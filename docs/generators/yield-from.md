@@ -56,7 +56,7 @@ a rewrite of the downstream code, as we've discussed
 [before](/generators/introduction/#brevity-has-its-costs).
 
 
-## Our Solution
+## Naive Solution
 We can solve the problem by instantiating the generator objects within `generate_red_blue`
 and then yield ourselves, as shown below.
 
@@ -108,7 +108,8 @@ Handling all of these cases is [non-trivial](https://www.python.org/dev/peps/pep
 yet boilerplate. This is why [PEP 380](https://www.python.org/dev/peps/pep-0380) added a new
 syntax called `yield from`.
 
-Let's see an example.
+The `generate_red` and `generate_blue` are defined just like in the naive solution above.
+The refactored, `yield from`-based generator function is below.
 
 ```python
 def generate_red_blue_refactored(n=2):
@@ -140,6 +141,11 @@ the subgenerators and a proper handling of exceptions. If we were to add these b
 our basic solution in `generate_red_blue_refactored_basic`, we would have to write a lot of
 code such as the one shown in [PEP 380](https://www.python.org/dev/peps/pep-0380/#formal-semantics).
 
+!!! success "`yield from` still makes a generator function"
+    As you may have noticed, a function containing a syntactically reachable `yield from` is
+    still a generator function (which is an extended, not a simple function). The same
+    [rules](/generators/mechanics-by-examples/) apply as that for `yield`.
+
 ## `yield from` is a QoL improvement
 If you review [PEP 380](https://www.python.org/dev/peps/pep-0380/#formal-semantics), you'll find
 that `yield from` is semantically equivalent to a small snippet of regular python code that
@@ -155,8 +161,9 @@ Firstly, generator-based coroutines are deprecated and scheduled for
 in Python 3.10. It's no longer need to learn asynchronous programming in python.
 Secondly, even the term *generator-based coroutines* causes so much
 [confusion](https://www.python.org/dev/peps/pep-0492/#rationale-and-goals); is it a generator,
-is it a coroutine, is it both, or is it neither? See
-[this footnote](/why-is-it-difficult/#fn:5) in Introduction for more details.
+is it a coroutine, is it both, or is it neither? See the
+[footnote in Control](/suspendables/control/#fn:5) and the
+[footnote in Introduction](/why-is-it-difficult/#fn:5) for even more details.
 
 We recommend beginners to forget that generator-based coroutines exist or that `yield from`
 has a special usage to create them. There is nothing to lose by doing so.
