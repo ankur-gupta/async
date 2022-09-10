@@ -42,10 +42,6 @@ theme:
     # https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#repository-icon
     repo: fontawesome/brands/github
 
-  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-versioning/#version-warning
-  # https://squidfunk.github.io/mkdocs-material/customization/#overriding-blocks
-  custom_dir: overrides
-
 # Header repository
 # https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#repository
 repo_name: ankur-gupta/async
