@@ -1,35 +1,50 @@
 ## Yet Another Tutorial
-In our opinion, every other asynchronous python programming tutorial that we have come across follows the same style:
+Nearly every other tutorial, in our opinion[^1], has the same drawbacks:
 
-1. The tutorial presents the reading material in a chronological order, starting with iterators, then generators, then generator-based coroutines, and then native coroutines. 
-2. The tutorial insists on teaching defunct concepts which creates unnecessary confusion.
-3. The tutorial uses outdated and insufficient terminology.
+- [ ] Study material is presented in the chronological order of invention
+    1. Iterators
+    2. Generators
+    3. Generator-based coroutines
+    4. Native coroutines
+- [ ] Study material contains defunct concepts
+- [ ] Study material uses insufficient terminology
 
-The above style of teaching is unnecessarily difficult because of Python's troubled history of incrementally acquiring asynchronous programming via a series of often superseding PEPs.
+<!-- Capitalize the P in Python a la https://www.python.org/ -->
+For many students, it is actually easier to first learn the basics of asynchronous programming in a 
+modern language, like Go or Kotlin, and then come back to asynchronous programming in Python. 
+This is because Go and Kotlin were designed to have asynchronous programming support very early 
+on and therefore have a more streamlined learning experience. 
+On the contrary, Python has acquired asynchronous programming via a series of superseding PEPs. 
+As a result, some concepts have now become defunct (such as the generator-based coroutines) 
+and some ideas need to be redefined (such as the difference between iterators and generators). 
+Teaching defunct concepts and obsolete definitions makes learning unnecessarily difficult. 
 
-For many people, it is easier to learn the basics of asynchronous programming in another modern language (like Go or Kotlin) first and then come back to Python. The newer languages like Go and Kotlin were designed to have asynchronous programming support very early on and therefore have a more streamlined learning experience. 
+## What this course does differently?
+We aim to bring the streamlined learning experience to Python. In this course,
 
-## What this course does differently
-We believe that the same streamlined learning experience can be accomplished in Python as well if we choose to teach it differently.
-
-1. This course presents concepts in an increasing order of complexity instead of being bound by the chronological order of invention.
-2. This course does not teach you defunct concepts that you can no longer use.
-3. This course borrows terminology from newer languages and invents some terminology to describe concepts that exist in python but remain unnamed.
+- [x] study material is presented in an increasing order of complexity instead of the 
+chronological order of invention
+- [x] study material omits defunct concepts
+- [x] terminology is invented or borrowed from modern languages, as needed
 
 ## Course Requirements
-* Proficiency in Python syntax
-* Basic knowledge of Python data structures
-* Patience, lots of patience
+- [x] Proficiency in Python syntax
+- [x] Basic knowledge of Python data structures
+- [x] Time and patience
 
-## Time Commitment
+
+## Time commitment
 This course is divided into 4 chapters, shown as top-level tabs. Depending upon your previous
-experience with async programming (in any language), it may take you anywhere between 2 hours to
-2 days to finish the material.
+experience with async programming (in any language), it may take you anywhere between 4 hours to
+4 days to complete the material. Feel free to skip and return back to the material as needed.
 
-## Python Version
-This course describes **Python 3.8.5**. This course almost assuredly is in conflict with earlier versions of Python.
+## Python version
+This course describes **Python 3.8.5**. Earlier Python versions may not work and are not
+recommended. Python async sytnax is still being refined. Specific examples from this course
+may need to be updated but the general concepts should apply to all later versions of Python.
 
-The general concepts in this course should hold for all later versions of Python. Since Python async syntax is still being refined, some of the specific examples in this course may not work as described. Please let us know and we will update them.
+## Let's begin
+We'll start with some commentary on why async Python programming is difficult to learn.
 
-## Let's Begin
-We'll start with some commentary on why async Python programming is difficult to learn or teach.
+### Footnotes
+[^1]: Apologies for the bluntness. We aim to be direct. Please take no offense.

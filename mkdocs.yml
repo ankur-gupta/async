@@ -92,6 +92,19 @@ markdown_extensions:
   # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#footnotes
   - footnotes
 
+  # List with custom icons
+  # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#tasklist
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+  # For icons
+  # https://squidfunk.github.io/mkdocs-material/reference/icons-emojis/#configuration
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+
+
 plugins:
   # https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#revisioning
   - git-revision-date-localized:

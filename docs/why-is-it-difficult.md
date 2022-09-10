@@ -1,15 +1,17 @@
-# Why is Python easy but async programming in Python difficult?
+# Sync Python is easy but async Python is not
 !!! tip "Tip"
-    Some of the terms used on this page may not make sense just yet. Feel free to skip to the next
-    topic and come back to this page later.
+    Some terminology on this page may not make sense just yet. Feel free to skip and return.
 
-Learning asynchronous programming in Python is *unreasonably* difficult.
-This is unusual because Python is very easy to learn. So easy, that it is often used as the [first programming language](https://www.coursera.org/learn/learn-to-program?).
+Synchronous Python programming is easy. So easy that it is often used as the 
+[first programming language](https://www.coursera.org/learn/learn-to-program?)
+and sometimes [criticized](https://duckduckgo.com/?q=python+is+too+easy+for+%22first%22+programming+language&t=ffab&ia=web)
+for being too easy.
+But, learning asynchronous programming in Python is *unreasonably* difficult.
 
 ### Async programming is *inherently* more complicated
 A *regular program*[^1] has a single[^2]
 [control flow](https://en.wikipedia.org/wiki/Control_flow) path that a programmer
-can walk through mentally in order to reason about the program.
+can mentally walk through in order to reason about the program.
 An asynchronous program often has multiple,
 implicit control flow paths. A programmer has to think about all the possible paths in
 order to properly reason about the program. This makes asynchronous programming inherently more
@@ -24,7 +26,7 @@ syntax associated with async programming.
     *Simple generators* were proposed for Python 2.2 via [PEP 255](https://www.python.org/dev/peps/pep-0255/).
 
 !!! success "2020"
-    *Generator-based coroutines* are being
+    *Generator-based coroutines* were
     [removed](https://docs.python.org/3.10/library/asyncio-task.html#generator-based-coroutines)
     from Python 3.10.
 
