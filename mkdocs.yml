@@ -1,27 +1,79 @@
 site_name: Asynchronous Programming in Python
 theme:
   name: material
-  # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/#logo
-  icon:
-    logo: material/shuffle-variant
 
-  # The favicon can be changed to a path pointing to a user-provided image, 
+  # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#color-palette-toggle
+  palette:
+    # Palette toggle for light mode.
+    # This media query is checked first.
+    # It's also the fallback when no media query matches.
+    - scheme: default
+      primary: green
+      accent: green
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode.
+    # This media query is checked second.
+    # If it doesn't match, the first one is automatically used.
+    - scheme: slate
+      primary: green
+      accent: green
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+  features:
+    - navigation.tabs
+    - search.suggest
+    - search.highlight
+    - search.share
+
+  # The favicon can be changed to a path pointing to a user-provided image,
   # which must be located in the `docs` folder.
   # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/#favicon
   favicon: assets/images/favicon.svg
 
-  features:
-    - navigation.tabs
+  icon:
+    # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/#logo
+    logo: material/shuffle-variant
+
+    # https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#repository-icon
+    repo: fontawesome/brands/github
+
+# Header repository
+# https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#repository
+repo_name: ankur-gupta/async
+repo_url: https://github.com/ankur-gupta/async
+edit_uri: edit/main/docs/
+
+# Footer Social Links
+# https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/#social-links
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ankur-gupta
+    - icon: fontawesome/brands/pied-piper-alt
+      link: https://www.perfectlyrandom.org
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/ankurguptawisc
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/ankurio
+
+# Footer Copyright
+# https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/#copyright-notice
+copyright: Copyright &copy; Ankur Gupta
 
 markdown_extensions:
   - toc:
       permalink: true
       # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#table-of-contents
       title: On this page
-  
+
   # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#betterem
   - pymdownx.betterem
-  
+
   # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#details
   - pymdownx.details
 
@@ -30,6 +82,19 @@ markdown_extensions:
       auto_title: true
       use_pygments: true
       linenums: true
+
+plugins:
+  # https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#revisioning
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+      fallback_to_build_date: true
+
+  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-site-search/#built-in-search-plugin
+  # Search is enabled by default, but must be re-added to mkdocs.yml when other plugins
+  # are used.
+  - search
+
 
 nav:
   - Get Started:
