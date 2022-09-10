@@ -1,5 +1,47 @@
-# Coroutines
+# Introduction
+FIXME
 
+Let's assume that we do not know anything about generators. We will not need to use the
+keywords `yield` or `yield from` in coroutines at all. In fact, adding either of these may create
+problems. Using `yield` within a coroutine may create a beast called asynchronous generator
+which we will study later on. Using `yield from` is illegal (CITE THE PEP).
+
+Let's begin from the end of
+Suspendables, specifically, this
+[table](/suspendables/control/#explicit-vs-implicit-control-transfer-suspendables)
+and the [review](/suspendables/review/#python-from-here-on).
+
+A coroutine may be defined simply by adding a `async` before `def`. The following is an example
+of the simplest coroutine.
+
+```python
+async def example_coroutine_function():
+    return 1
+```
+
+Can we drive the coroutine ourselves?
+
+```python
+import asyncio
+asyncio.run(example_coroutine_function())
+# 1
+```
+
+https://stackoverflow.com/questions/52783605/how-to-run-a-coroutine-outside-of-an-event-loop
+
+Coroutine is derived from an Awaitable
+https://github.com/python/cpython/blob/d5d3249e8a37936d32266fa06ac20017307a1f70/Lib/_collections_abc.py#L114
+https://docs.python.org/3/library/collections.abc.html#collections-abstract-base-classes
+
+Coroutine does not have a `__next__` method.
+
+From https://github.com/python/cpython/blob/d5d3249e8a37936d32266fa06ac20017307a1f70/Lib/_collections_abc.py#L57:
+```python
+## coroutine ##
+async def _coro(): pass
+_coro = _coro()
+coroutine = type(_coro)
+```
 
 
 

@@ -1,36 +1,35 @@
-# Introduction
-There are a [lot of tutorials](https://www.google.com/search?q=async+programming+python) that
-teach asynchronous programming in Python. I am grateful for these tutorials, most of which are
-freely available online. However, all of these tutorials have the same didactic style –
-*they present the material in chronological order using outdated terminology*.
+## Yet Another Tutorial
+In our opinion, every other asynchronous python programming tutorial that we have come across follows the same style:
 
-This didactic style makes it *unreasonably* difficult to learn async Python programming.
-I found the tutorials on async programming for other programming languages to be more informative
-than the ones for Python. This made me realize that async programming in
-Python could be made quite straightforward only if it was taught in a different way.
-That's what led me to design this *self-study* course on *Asynchronous Python Programming*.
+1. The tutorial presents the reading material in a chronological order, starting with iterators, then generators, then generator-based coroutines, and then native coroutines. 
+2. The tutorial insists on teaching defunct concepts which creates unnecessary confusion.
+3. The tutorial uses outdated and insufficient terminology.
+
+The above style of teaching is unnecessarily difficult because of Python's troubled history of incrementally acquiring asynchronous programming via a series of often superseding PEPs.
+
+For many people, it is easier to learn the basics of asynchronous programming in another modern language (like Go or Kotlin) first and then come back to Python. The newer languages like Go and Kotlin were designed to have asynchronous programming support very early on and therefore have a more streamlined learning experience. 
+
+## What this course does differently
+We believe that the same streamlined learning experience can be accomplished in Python as well if we choose to teach it differently.
+
+1. This course presents concepts in an increasing order of complexity instead of being bound by the chronological order of invention.
+2. This course does not teach you defunct concepts that you can no longer use.
+3. This course borrows terminology from newer languages and invents some terminology to describe concepts that exist in python but remain unnamed.
 
 ## Course Requirements
 * Proficiency in Python syntax
 * Basic knowledge of Python data structures
+* Patience, lots of patience
 
 ## Time Commitment
 This course is divided into 4 chapters, shown as top-level tabs. Depending upon your previous
 experience with async programming (in any language), it may take you anywhere between 2 hours to
 2 days to finish the material.
 
-## Terminology
-We use a different terminology than what is commonly used.
-This is intentional. Our terminology provides a sharp separation between *closely related
-but different* concepts that are otherwise lumped together.
-
 ## Python Version
-This course describes **Python 3.8.5**. This course almost assuredly is in conflict with
-earlier versions of Python.
+This course describes **Python 3.8.5**. This course almost assuredly is in conflict with earlier versions of Python.
 
-The general concepts in this course should hold for all later versions of Python.
-Since Python async syntax is still being refined, some of the specific
-examples in this course may not work as described. Please let me know and I will update them.
+The general concepts in this course should hold for all later versions of Python. Since Python async syntax is still being refined, some of the specific examples in this course may not work as described. Please let us know and we will update them.
 
 ## Let's Begin
 We'll start with some commentary on why async Python programming is difficult to learn or teach.

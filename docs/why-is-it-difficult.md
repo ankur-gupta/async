@@ -1,16 +1,10 @@
+# Why is Python easy but async programming in Python difficult?
 !!! tip "Tip"
     Some of the terms used on this page may not make sense just yet. Feel free to skip to the next
     topic and come back to this page later.
 
 Learning asynchronous programming in Python is *unreasonably* difficult.
-This is unusual because Python is so easy to learn that it is used as the
-[first programming language](https://www.coursera.org/learn/learn-to-program?).
-This presents an interesting pedagogical problem:
-
-!!! question "Question"
-    Why is Python easy but async programming in Python difficult?
-
-The difficulty stems from the following reasons.
+This is unusual because Python is very easy to learn. So easy, that it is often used as the [first programming language](https://www.coursera.org/learn/learn-to-program?).
 
 ### Async programming is *inherently* more complicated
 A *regular program*[^1] has a single[^2]
@@ -37,14 +31,12 @@ syntax associated with async programming.
 Teaching resources that were once up-to-date became stale over time. Python
 programmers had to unlearn the stale semantics and then learn the then-new semantics multiple
 times. Unfortunately, this historical cruft is reflected in the teaching materials.
-Async Python programming is very often taught in the same order as the incrementally-added
-features -- starting with *iterators*, then *generators*, then *generator-based coroutines*,
+Async Python programming is very often taught in the same order as the order of incremental feature addition, starting with *iterators*, then *generators*, then *generator-based coroutines*,
 and finally, *native coroutines*. This style of teaching may be acceptable for a
-*History Of Python* lesson but it is unnecessarily disorienting for an async beginner even if
-the async beginner is well-versed in Python otherwise.
-For example, most teaching materials teach *generator-based coroutines* as an extension of
-*generators* only to mention in the end that *generator-based coroutines* are scheduled for
-removal.
+*History Of Python* lesson but it is unnecessarily disorienting for an otherwise python proficient programmer. 
+A prime example of this historical cruft is the concept of *generator-based coroutines* which are scheduled
+for removal. Generator-based coroutines have been superseded by *native coroutines*. Teaching generator-based coroutines
+only serves to confuse the async beginner.
 
 ### Outdated and insufficient terminology
 Async Python programming is taught using *generators* (aka *semicoroutines*) and
@@ -53,15 +45,15 @@ Async Python programming is taught using *generators* (aka *semicoroutines*) and
 !!! summary "Generators"
     Generators first appeared in 1975, were a
     [prominent feature](https://en.wikipedia.org/wiki/Generator_(computer_programming)#Timeline)
-    of the Icon programming language, and inspired
-    [PEP 255](https://www.python.org/dev/peps/pep-0255/#motivation) in 2001.
+    of the Icon programming language, and were the inspiration for
+    Python's [PEP 255](https://www.python.org/dev/peps/pep-0255/#motivation) in 2001.
 
 !!! summary "Coroutines"
     Coroutines were invented in 1958 and the first published explanation appeared in a
     [1963 paper](https://en.wikipedia.org/wiki/Coroutine) by Melvin Conway[^3] in context of the
     COBOL programming language and *punch cards*.
 
-Since then, coroutines have been
+Since their invention, coroutines have been
 [implemented](https://en.wikipedia.org/wiki/Coroutine#Implementations) in many languages with
 the implementations differing from each other due to language-specific idiosyncrasies.
 As a result, the modern definition of a coroutine is a generalization[^4] of all the different
@@ -79,15 +71,15 @@ Funnily, this failure of definitions eventually comes to light when the programm
 accidentally stumbles upon an [asynchronous generator](https://bugs.python.org/issue27243),
 which acts as both a generator and a coroutine at the same time[^5].
 
-More recent programming languages such as [Kotlin](https://kotlinlang.org/) (unveiled in
+Newer programming languages such as [Kotlin](https://kotlinlang.org/) (first appeared in
 [2011](https://en.wikipedia.org/wiki/Kotlin_(programming_language))) and
-[Go](https://golang.org/) (unveiled in
+[Go](https://golang.org/) (first appeared in
 [2009](https://en.wikipedia.org/wiki/Go_(programming_language))) provide a dramatically
-better learning experience compared to [Python](https://www.python.org/) (unveiled in
+better learning experience compared to [Python](https://www.python.org/) (first appeared in
 [1990](https://en.wikipedia.org/wiki/Python_(programming_language))).
-For example, Kotlin uses a much clearer
+Kotlin uses a much clearer
 [definition of a coroutine](https://github.com/Kotlin/KEEP/blob/master/proposals/coroutines.md#terminology)
-and Go provides a [goroutine](https://gobyexample.com/goroutines) as a primary feature.
+and Go provides a [goroutine](https://gobyexample.com/goroutines) as a first-class feature.
 
 ### Underhanded treatment of control flow and state
 Coroutines and generators are [radical](https://en.wikipedia.org/wiki/Goto#Coroutines)[^6] control

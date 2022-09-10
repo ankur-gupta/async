@@ -1,5 +1,5 @@
 # Suspendables
-In the previous page, we made a cooking *recipe* suspendable. A cooking *recipe* is
+On the previous page, we made a cooking *recipe* suspendable. A cooking *recipe* is
 analogous to a python *function* and a *suspendable recipe* is analogous to
 *suspendable function* in python. This is where programming becomes more complex than cooking.
 A *suspendable function* requires a lot more design thought than a *suspendable recipe*.

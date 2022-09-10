@@ -5,20 +5,17 @@ contemporary programming. This is easier said than done.
 Most of us are so well-versed with these common control flow constructs
 (such as *functions*) that it is difficult for us to completely let go of these ideas.
 So, let's use a trick. Cooking is surprisingly similar to programming. We will use cooking as
-an example to motivate the need for something called a *suspendable*, which we will define in
-the next page.
+an example to understand the need for the concept of a *suspendable*, which we will then define on the next page.
 
-## Eagle Crumpet
-Let's say we invent a completely new baked good and we name it *eagle crumpet*. Our first 10
-attempts to make eagle crumpet required a lot of experimentation — we needed to adjust the
+## Bear Crumpet
+Let's say we invent a completely new baked good and we name it *bear crumpet*. Our first 10
+attempts to make an bear crumpet required a lot of experimentation — we needed to adjust the
 amount of ingredients and we had to play around with the oven temperature and timing.
 After the first ten or so attempts, we perfected our invention — it's 50% tastier than a
 *regular crumpet* and 75% more awesome than a *bear claw*!
 
-We need to save the results from our experimentation so we don't have to repeat the
-experimentation every time we want to make an eagle crumpet.
-What we need is *an ordered sequence of instructions* or a *recipe* describing how
-to make an *eagle crumpet* perfectly at every future attempt. A recipe may be reminiscient of a
+We need to save the results from our experimentation so we don't have to repeat the experiments every time we want to make an bear crumpet.
+What we need is *an ordered sequence of instructions* or a *recipe* describing how to make an *bear crumpet* perfectly at every future attempt. A recipe may be reminiscient of a
 *function* in programming but the word *recipe* does not come with predefined, hard-to-disassociate
 implications that come with using the word *function*.
 
@@ -31,12 +28,7 @@ We can write the *recipe* for a very simple salad using the following pseudocode
     chop_tomato_into_the_bowl()
     chop_cucumber_into_the_bowl()
 </code></pre>
-Let's say a single person executes above recipe to make a salad. There are three steps to
-this simple recipe — chopping lettuce, chopping tomato, and chopping cucumber. For a salad, the
-order of these three steps does not matter. We could just as easily have chopped tomato first,
-then lettuce, and then cucumber and still have a salad. This recipe is so simple that we could
-even have done this — start chopping lettuce, stop midway, start chopping cucumber, stop midway,
-finish chopping lettuce, finish chopping cucumber, and chop tomato.
+Let's say a single person executes this recipe to make a salad. There are three steps to this simple recipe — chopping lettuce, chopping tomato, and chopping cucumber. For a salad, the order of these three steps does not matter. We could just as easily have chopped tomato first, then lettuce, and then cucumber and still have a salad. This recipe is so simple that we could have something even crazier — start chopping lettuce, stop midway, start chopping cucumber, stop midway, finish chopping lettuce, finish chopping cucumber, and then finally chop tomato.
 
 Not only does the order of the three steps not matter, we can even interleave the steps
 and still have a salad[^1].
@@ -51,29 +43,21 @@ mashed potatoes written using pseudocode:
     mash_potatoes()
     stir_potatoes_with_butter()
 </code></pre>
-As before, let's assume that a single person executes above recipe. The first two steps are
-simple enough — peel and cut potatoes. The third step (boiling the cut and peeled potatoes) is
-where the complexity arises. Unlike the salad recipe, we must cut and peel the potatoes before
-we boil them[^2]. Thus, the order of steps is important. More importantly, boiling the
-potatoes takes 15 minutes during which the cook is idle but the cook cannot proceed to the
-fourth step of mashing the boiled potatoes. Thus, the cook *must* wait until the potatoes are
-boiled.
+As before, let's assume that a single person executes this recipe. The first two steps are simple enough — peel and cut potatoes. The third step, boiling the potatoes that have been cut and peeled, is where the complexity arises. Unlike the salad recipe, the order of steps is important for mashed potatoes. We must cut and peel the potatoes before we boil them[^2] and we need to finish boiling the potatoes before we can mash the boiled potatoes. It takes 15 minutes to boil the potatoes during which the cook is idle but cannot begin mashing the
+mashing the potatoes. It appears that the cook *must* wait until the potatoes are boiled, which seems to be a waste of time.
 
 ## Salad & Mashed Potatoes
-Let's say that a single person has to make both the salad and the mashed potatoes. There are
-various ways to do these tasks. The cook can first make the salad and then make the mashed
-potatoes. This works but is not the most efficient use of time. The cook can save some time[^3] by
-ordering the steps like this:
+Now, let's consider the scenario in which a single person has to make both the salad and the mashed potatoes. The cook can work serially — make the salad first and then make the mashed potatoes, but this is not the most efficient use of time. The cook can save some time[^3] by
+interleaving the steps like this:
 
-1. Start making the mashed potatoes
-2. Set the potatoes to boil
-3. Temporarily suspend working on mashed potatoes
-4. Make the salad
-5. Resume making mashed potatoes
+1. Peel potatoes
+2. Cut potatoes
+3. Set the potatoes to boil
+4. Temporarily suspend working on mashed potatoes
+5. Make the salad
+6. Resume making mashed potatoes
 
-If we suspend the execution of `make_mashed_potatoes` recipe just after starting the boiling
-step, we can use that time to execute `make_salad` instead of waiting idly for the
-potatoes to boil. Thus, we can be more efficient with our time if we make `make_mashed_potatoes`
+If we suspend the execution of `make_mashed_potatoes` recipe just after starting the boiling step, we can use that time to execute `make_salad` instead of waiting by idly for the potatoes to boil. Thus, we can be more efficient with our time if we make `make_mashed_potatoes`
 a *suspendable* recipe. The same motivation applies to *functions* in programming.
 
 
