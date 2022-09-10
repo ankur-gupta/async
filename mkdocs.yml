@@ -104,8 +104,24 @@ plugins:
   # are used.
   - search
 
-
 nav:
   - Get Started:
     - Introduction: index.md
     - Why is it difficult?: why-is-it-difficult.md
+  - Suspendables:
+    - Cooking is like programming: suspendables/cooking-is-like-programming.md
+    - Suspendables: suspendables/suspendables.md
+    - Control: suspendables/control.md
+    - Syntax: suspendables/syntax.md
+    - Review: suspendables/review.md
+  - Generators:
+    - Introduction: generators/introduction.md
+    - A Better Way to Drive: generators/a-better-way-to-drive.md
+    - Generator Class: generators/generator-class.md
+    - Mechanics by Examples: generators/mechanics-by-examples.md
+    - yield from: generators/yield-from.md
+    - Examples: generators/examples.md
+    - History: generators/history.md
+  - Coroutines:
+    - Introduction: coroutines/introduction.md
+    - Event Loop: coroutines/eventloop.md
