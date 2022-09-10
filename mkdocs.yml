@@ -1,0 +1,36 @@
+site_name: Asynchronous Programming in Python
+theme:
+  name: material
+  # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/#logo
+  icon:
+    logo: material/shuffle-variant
+
+  # The favicon can be changed to a path pointing to a user-provided image, 
+  # which must be located in the `docs` folder.
+  # https://squidfunk.github.io/mkdocs-material/setup/changing-the-logo-and-icons/#favicon
+  favicon: assets/images/favicon.svg
+
+  features:
+    - navigation.tabs
+
+markdown_extensions:
+  - toc:
+      permalink: true
+      # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#table-of-contents
+      title: On this page
+  
+  # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#betterem
+  - pymdownx.betterem
+  
+  # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#details
+  - pymdownx.details
+
+  # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown-extensions/#highlight
+  - pymdownx.highlight:
+      auto_title: true
+      use_pygments: true
+      linenums: true
+
+nav:
+  - Get Started:
+    - Introduction: index.md
