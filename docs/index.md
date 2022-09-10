@@ -13,7 +13,6 @@ That's what led me to design this *self-study* course on *Asynchronous Python Pr
 ## Course Requirements
 * Proficiency in Python syntax
 * Basic knowledge of Python data structures
-* Patience, lots of patience
 
 ## Time Commitment
 This course is divided into 4 chapters, shown as top-level tabs. Depending upon your previous
