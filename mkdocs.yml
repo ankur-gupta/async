@@ -117,7 +117,8 @@ plugins:
   # https://github.com/jimporter/mike
   - mike:
       version_selector: true
-      canonical_version: 'latest'
+      canonical_version: latest
+      alias_type: redirect
       # deploy_prefix: 'latest'
 
 nav:
