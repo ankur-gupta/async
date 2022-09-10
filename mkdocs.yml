@@ -48,9 +48,9 @@ repo_name: ankur-gupta/async
 repo_url: https://github.com/ankur-gupta/async
 edit_uri: edit/main/docs/
 
-# Footer Social Links
-# https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/#social-links
 extra:
+  # Footer Social Links
+  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/#social-links
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/ankur-gupta
@@ -60,6 +60,10 @@ extra:
       link: https://www.linkedin.com/in/ankurguptawisc
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/ankurio
+  # https://squidfunk.github.io/mkdocs-material/setup/setting-up-versioning/
+  # See this for a quick usage guide: https://github.com/squidfunk/mkdocs-material-example-versioning
+  version:
+    provider: mike
 
 # Footer Copyright
 # https://squidfunk.github.io/mkdocs-material/setup/setting-up-the-footer/#copyright-notice
