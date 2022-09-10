@@ -83,6 +83,15 @@ markdown_extensions:
       use_pygments: true
       linenums: true
 
+  # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#admonition
+  - admonition
+
+  # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#definition-lists
+  - def_list
+
+  # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#footnotes
+  - footnotes
+
 plugins:
   # https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#revisioning
   - git-revision-date-localized:
@@ -99,3 +108,4 @@ plugins:
 nav:
   - Get Started:
     - Introduction: index.md
+    - Why is it difficult?: why-is-it-difficult.md
