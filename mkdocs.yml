@@ -104,6 +104,13 @@ markdown_extensions:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
 
+  # This enables content tabs, allows nesting of arbitrary content inside content tabs, 
+  # including code blocks and more content tabs.
+  # https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#configuration
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true 
+
 
 plugins:
   # https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#revisioning

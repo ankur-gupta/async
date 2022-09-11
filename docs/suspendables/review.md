@@ -62,7 +62,7 @@ Since we [prefer](/suspendables/syntax/#verbosity-mental-model) suspendables to
 have a functional form, suspendable functions cannot be implemented as simple functions.
 
 Both generators and coroutines are implemented as extended functions. Calling
-a generator or a corotuine does not execute the internal contents of the suspendable but
+a generator or a coroutine does not execute the internal contents of the suspendable but
 instead returns an object that can be used to execute the contnts.
 
 In the rest of this course, we will study python's implementation of generators and

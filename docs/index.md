@@ -15,8 +15,8 @@ modern language, like Go or Kotlin, and then come back to asynchronous programmi
 This is because Go and Kotlin were designed to have asynchronous programming support very early 
 on and therefore have a more streamlined learning experience. 
 On the contrary, Python has acquired asynchronous programming via a series of superseding PEPs. 
-As a result, some concepts have now become defunct (such as the generator-based coroutines) 
-and some ideas need to be redefined (such as the difference between iterators and generators). 
+As a result, some concepts have now become defunct (such as, generator-based coroutines) 
+and some ideas need to be redefined (such as, the difference between iterators and generators). 
 Teaching defunct concepts and obsolete definitions makes learning unnecessarily difficult. 
 
 ## What this course does differently?

@@ -126,9 +126,10 @@ mentioned, if at all[^7].
     *async generators*. This would formally complete the separation of generators and
     coroutines in Python.
 [^6]:
-    It can be argued that coroutines and generators are a form of
-    [structured concurrency](https://en.wikipedia.org/wiki/Structured_concurrency) that is
-    sufficiently close enough to structured programming and should not be called *radical*.
+    This is more philosophical than factual. The counter-point could also be argued, that, 
+    coroutines and generators need not be called _radical_ because they are a form of 
+    [structured concurrency](https://en.wikipedia.org/wiki/Structured_concurrency), which is a
+    a closely related concept to structured programming.
 [^7]:
     It is much more common to find the following outdated distinction -- a Python generator
     only generates values but a Python coroutine can both generate and accept values.

@@ -1,95 +1,104 @@
 # Control
-*Who gets the control when the suspendable entity suspends execution ?*
+!!! summary "Control"
+    Who gets the control when a suspendable entity suspends execution ?
 
-A forthright answer to this question is essential to prevent avoidable confusion.
-Unfortunately, most python teaching resources shy away from expressly discussing the question of
-control flow, as we alluded to in the [beginning](/why-is-it-difficult/#underhanded-treatment-of-control-flow-and-state).
+In our opinion, this key question is often avoided by most other tutorials, which makes 
+learning unncessarily difficult. We alluded to this in the 
+[beginning](/why-is-it-difficult/#underhanded-treatment-of-control-flow-and-state).
 
-In this course, we use new nomenclature to understand the answer to this question.
-Specifically, we define two subtypes of suspendables based on how control is transferred
-away from a suspendable. These two substypes are called *Explicit Control Transfer Suspendables*
-and *Implicit Control Transfer Suspendables*.
+In this course, we use new terminology to answer this question.
+Specifically, we subcategorize suspendables on the basis of control flow:
 
-We use python-like pseudocode instead of real python code throughout this page. This is necessary
-because in order to use real python code, we will need to define proper syntax, which is
-non-trivial, as discussed in the [next section](/suspendables/syntax/).
+1. *Explicit Control Transfer Suspendables*
+2. *Implicit Control Transfer Suspendables*
+
+We use python-like pseudocode instead of real python code throughout this page. 
+We cannot use real python code yet because we haven't answered the question of
+[syntax](/suspendables/syntax/).
 
 ## Explicit Control Transfer Suspendables
 Let's re-visit our [Salad & Mashed Potatoes](/suspendables/cooking-is-like-programming/#salad-mashed-potatoes)
-example from before. We previously noted that making `make_mashed_potatoes` a suspendable function
-would be more efficient because we can execute `make_salad` while the potatoes are boiling.
-In order to do so, we need to break up the `boil_potatoes` function into three pieces:
+example from before. We previously noted that making `mashed_potatoes` a suspendable recipe
+would be more efficient because we can execute `salad` while the potatoes are boiling.
+In order to do so, we need to break up `boil_potatoes` into three pieces:
 
-1. `start_boiling_potatoes` which involves putting the potatoes in a heating saucepan and setting
-the timer for auto shutoff in 15 minutes
-2. `release control` when the potatoes are boiling
-3. `finish_boiling_potatoes` which involves draining the hot water from the saucepan and cleaning
-up
+!!! note "`boil_potatoes`"
+    `start_boiling_potatoes`
+    : Put the potatoes and water in a saucepan and set the auto shutoff timer for 15 minutes
+
+    `release control`
+    : while the potatoes are boiling
+
+    `finish_boiling_potatoes`
+    : Drain the hot water from the saucepan and extract boiled potatoes
 
 We can write our code in one of two ways as shown below.
 
 === "Example 1"
-    <pre><code><strong>function</strong> make_salad
+    <pre><code><strong>function</strong> salad
         chop_lettuce_into_the_bowl()
         chop_tomato_into_the_bowl()
         chop_cucumber_into_the_bowl()<br/>
-    <strong>suspendable function</strong> make_mashed_potatoes
+    <strong>suspendable function</strong> mashed_potatoes
         peel_potatoes()
         cut_potatoes()
         start_boiling_potatoes(minutes=15, auto_shutoff=<strong>true</strong>)
-        <strong>release control</strong>  # to caller
+        <strong>release control</strong>  # to the caller
         finish_boiling_potatoes()
         mash_potatoes()
         stir_potatoes_with_butter()<br/>
     <strong>function</strong> main
-        make_mashed_potatoes()
-        make_salad()
-        make_mashed_potatoes()  # resume suspended run<br/>
+        mashed_potatoes()
+        salad()
+        mashed_potatoes()  # resume suspended run<br/>
     main()
     </code></pre>
 
 === "Example 2"
-    <pre><code><strong>function</strong> make_salad
+    <pre><code><strong>function</strong> salad
         chop_lettuce_into_the_bowl()
         chop_tomato_into_the_bowl()
         chop_cucumber_into_the_bowl()<br/>
-    <strong>suspendable function</strong> make_mashed_potatoes
+    <strong>suspendable function</strong> mashed_potatoes
         peel_potatoes()
         cut_potatoes()
         start_boiling_potatoes(minutes=15, auto_shutoff=<strong>true</strong>)
-        <strong>release control to</strong> make_salad()
+        <strong>release control to</strong> salad()
         finish_boiling_potatoes()
         mash_potatoes()
         stir_potatoes_with_butter()<br/>
     <strong>function</strong> main
-        make_mashed_potatoes()<br/>
+        mashed_potatoes()<br/>
     main()
     </code></pre>
 
-In Example 1, control is transferred from `main` to `make_mashed_potatoes`, which transfers the
+In Example 1, control is transferred from `main` to `mashed_potatoes`, which transfers the
 control back to `main` once the potatoes are set to boil. `main` then sends the control to
-`make_salad` which finishes its job and returns control back to `main` like any traditional
-function. `main` then calls `make_mashed_potatoes` once again to resume the suspended run[^1].
+`salad` which finishes its job and returns control back to `main` like any traditional
+function. `main` then calls `mashed_potatoes` once again to resume the suspended run[^1].
 
-In Example 2, control is transferred from `main` to `make_mashed_potatoes`, which then transfers
-the control to `make_salad` while the potatoes are boiling instead of returning control back to
-`main`. As usual, `make_salad` which finishes its job and returns control back to its caller
-which happens to be `make_mashed_potatoes`. Finally, `make_mashed_potatoes` then finishes its job
+In Example 2, control is transferred from `main` to `mashed_potatoes`, which then transfers
+the control to `salad` while the potatoes are boiling instead of returning control back to
+`main`. `salad` finishes its job and returns control back to its caller
+which happens to be `mashed_potatoes`. Finally, `mashed_potatoes` then finishes its job
 and transfers control back to `main` at the end.
 
 In both examples, the suspendable function transfers the control **explicitly** and
 **deterministically** from itself to another known function. In Example 1, during suspension,
-the control transfers from `make_mashed_potatoes` to its caller (`main`). In Example 2,
-the control transfers from `make_mashed_potatoes` to `make_salad`. In both of these examples,
+the control transfers from `mashed_potatoes` to its caller, `main`. In Example 2,
+the control transfers from `mashed_potatoes` to `salad`. In both of these examples,
 the programmer knows deterministically which line of the program would execute immediately after
 the control is released during suspension without having to run the code at all.
 
-Both these examples demonstrate the use of Explicit Control Transfer Suspendables.
-The raison d'être for the name *Explicit Control Transfer Suspendables* will only become clear
-once we look at the *Implicit Control Transfer Suspendables*.
+The suspendable `mashed_potatoes` in both examples is an Explicit Control Transfer Suspendable.
+The idea of explicit control transfer is best understood in contrast to the implicit control 
+transfer.
 
 
 ## Implicit Control Transfer Suspendables
+The [Salad & Mashed Potatoes](/suspendables/cooking-is-like-programming/#salad-mashed-potatoes) 
+example is not suited to demonstrate implicit control transfer. 
+
 Let's consider a more real-world use case for suspendables -- network calls. Suppose you play a
 video game on three different servers -- Server Red, Server Blue, and Server Green. Each server
 may have a slightly different copy of your saved game data based on when you last played.
@@ -362,7 +371,7 @@ defining unambiguous syntax for suspendables.
 ## Footnotes
 [^1]:
     Wary readers may already have noticed the ambiguity in the second call to
-    `make_mashed_potatoes`. How would we differentiate between a resumption of a previously
+    `mashed_potatoes`. How would we differentiate between a resumption of a previously
     suspended run and a second independent run of a suspendable function? This is exactly why
     we had to use pseudocode for our examples. We tackle this question of unambiguous syntax
     and semantics [next](/suspendables/syntax/).
