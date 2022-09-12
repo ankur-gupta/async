@@ -2,6 +2,10 @@ site_name: Asynchronous Programming in Python
 theme:
   name: material
 
+  # To add a comment system
+  # See https://squidfunk.github.io/mkdocs-material/customization/#setup-and-theme-structure
+  custom_dir: overrides
+
   # https://squidfunk.github.io/mkdocs-material/setup/changing-the-colors/#color-palette-toggle
   palette:
     # Palette toggle for light mode.
