@@ -61,7 +61,7 @@ David Beazley's [live coding](https://www.youtube.com/watch?v=MCs5OvhV9S4).
 In any case, it is nearly impossible, if not immensely impractical, to discuss coroutines
 (which are uncontentiously a model of asynchronous programming) without discussing generators.
 
-### Suspenables are extended functions
+### Suspenables by syntax
 Since we [prefer](/suspendables/syntax/#verbosity-natural-representation) suspendables to
 have a functional form, suspendable functions cannot be implemented as simple functions.
 
@@ -71,3 +71,7 @@ instead returns an object that can be used to execute the contnts.
 
 In the rest of this course, we will study python's implementation of generators and
 coroutines, while discussing their specific design, syntax, and control flow.
+
+### Suspendables by control transfer and by syntax
+Control transfer and syntax are orthogonal properties. 
+Both (explicit) generators and (implicit) coroutines are extended functions. 

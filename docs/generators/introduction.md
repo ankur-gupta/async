@@ -1,4 +1,5 @@
 # Introduction
+## Definition
 A generator may be defined simply by including a syntactically reachable `yield` (or `yield from`)
 keyword within a function. The following is an example of the simplest generator.
 
