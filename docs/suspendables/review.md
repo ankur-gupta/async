@@ -1,6 +1,6 @@
 # Review
 
-## There are others
+## Alternative models of async programming
 There are many models for asynchronous programming. The following table is an non-exhaustive list
 of some of these models.
 
@@ -39,26 +39,30 @@ function.
 Before we move to discussing the exact details of asynchronous programming in python,
 let's review what we discussed until now.
 
-#### Suspendables can be categorized based on control transfer semantics
-Suspendables can be categorized into
+### Suspendables by control transfer
+Based on how the control is transferred, suspendables can be categorized into
 
-* Explicit Control Transfer Suspendables, and
+* Explicit Control Transfer Suspendables
 * Implicit Control Transfer Suspendables
 
-based on how the control is transferred away from the suspendable. Python provides
-generators as an implementation of an explicit control transfer suspendable and coroutines as
-an implementation of an implicit control transfer suspendable.
+Python provides generators as an implementation of an explicit control transfer suspendable 
+and coroutines as an implementation of an implicit control transfer suspendable.
 
-It may be argued, with some merit, that generators do not be even qualify as a model of
-asynchronous programming. However, a counter argument is provided in our
-[improved approach](/suspendables/control/#improved-approach) pseudocode example and in
-David Beazley's [live coding](https://www.youtube.com/watch?v=MCs5OvhV9S4)
-of a basic event loop in python from scratch using only generators.
-In any case, it is impossible, if not immensely impractical, to discuss coroutines
+| Suspendable Type          | Python Implementation |
+|---------------------------|-----------------------|
+| Explicit Control Transfer | Generators            |
+| Implicit Control Transfer | Coroutines            |
+
+It may be argued, with some merit, that only coroutines qualify as a model of asynchronous 
+programming and generators do not. However, you could add an event loop over generators to 
+emulate a coroutine, as was done in our 
+[improved implementation](/suspendables/control/#improved-implementation) as well as 
+David Beazley's [live coding](https://www.youtube.com/watch?v=MCs5OvhV9S4).
+In any case, it is nearly impossible, if not immensely impractical, to discuss coroutines
 (which are uncontentiously a model of asynchronous programming) without discussing generators.
 
-#### Suspenables may be implemented as extended functions but not as simple functions
-Since we [prefer](/suspendables/syntax/#verbosity-mental-model) suspendables to
+### Suspenables are extended functions
+Since we [prefer](/suspendables/syntax/#verbosity-natural-representation) suspendables to
 have a functional form, suspendable functions cannot be implemented as simple functions.
 
 Both generators and coroutines are implemented as extended functions. Calling
