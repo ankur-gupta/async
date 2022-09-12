@@ -32,7 +32,6 @@ chronological order of invention
 - [x] Basic knowledge of Python data structures
 - [x] Time and patience
 
-
 ## Time commitment
 This course is divided into 4 chapters, shown as top-level tabs. Depending upon your previous
 experience with async programming (in any language), it may take you anywhere between 4 hours to
@@ -46,5 +45,5 @@ may need to be updated but the general concepts should apply to all later versio
 ## Let's begin
 We'll start with some commentary on why async Python programming is difficult to learn.
 
-### Footnotes
+## Footnotes
 [^1]: Apologies for the bluntness. We aim to be direct. Please take no offense.
