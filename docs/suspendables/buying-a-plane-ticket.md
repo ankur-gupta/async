@@ -7,7 +7,6 @@ different prices, from three online vendors — Vendor Red, Vendor Green, and Ve
 query each vendor to get the ticket price so as to find the cheapest ticket.
 
 This classic example is often used to demonstrate the need for asynchronous programming itself.
-We will use this example to also demonstrate the need for implicit control transfer suspendables.
 
 ## The need for asynchronous programming
 ### Serial & synchronous
@@ -173,7 +172,7 @@ process-based parallelism along side asychronous programming.
 
 ### Not just theoretical
 [Nginx vs Apache](https://stackoverflow.com/questions/12924124/why-would-i-choose-a-threaded-process-based-approach-vs-asynchronous-web-server)
-provides a real-world, industrial-strength examplewhere asynchronous programming outperforms 
+provides a real-world, industrial-strength example where asynchronous programming outperforms 
 parallelism via multithreading.
 
 
