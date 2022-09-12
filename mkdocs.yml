@@ -81,7 +81,7 @@ markdown_extensions:
   - pymdownx.highlight:
       auto_title: true
       use_pygments: true
-      linenums: true
+      linenums: false  # I can still add linenums as needed
 
   # https://squidfunk.github.io/mkdocs-material/setup/extensions/python-markdown/#admonition
   - admonition
@@ -107,9 +107,22 @@ markdown_extensions:
   # This enables content tabs, allows nesting of arbitrary content inside content tabs, 
   # including code blocks and more content tabs.
   # https://squidfunk.github.io/mkdocs-material/reference/content-tabs/#configuration
-  - pymdownx.superfences
+  # - pymdownx.superfences  # Already included below
   - pymdownx.tabbed:
       alternate_style: true 
+  
+  # Mermaid diagrams
+  # https://squidfunk.github.io/mkdocs-material/reference/diagrams/#configuration
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  
+  # Usually enabled by default
+  # https://squidfunk.github.io/mkdocs-material/reference/data-tables/#configuration
+  - tables
+
 
 
 plugins:
@@ -130,6 +143,7 @@ nav:
     - Why is it difficult?: why-is-it-difficult.md
   - Suspendables:
     - Cooking is like programming: suspendables/cooking-is-like-programming.md
+    - Buying a plane ticket: suspendables/buying-a-plane-ticket.md
     - Suspendables: suspendables/suspendables.md
     - Control: suspendables/control.md
     - Syntax: suspendables/syntax.md
