@@ -1,15 +1,20 @@
 # Generator Class
 We [saw](/generators/introduction/) that calling a generator function returns a
-generator object. This leads us to wonder: *if there is a generator object then where is the
-corresponding generator class?[^1]*
+generator object.
+
+???+ question "Question"
+    If there is a generator object then where is the corresponding generator class?[^1]
 
 We also [saw](/generators/a-better-way-to-drive/) that `next` is not that special and
-driving a generator does not require the special keyword `yield`. *Shouldn't we be able to
-define our own generator class without having to depend on `yield` or a generator function?*
+driving a generator does not require the special keyword `yield`.
+
+???+ question "Question"
+    Shouldn't we be able to define our own generator class without having to depend on 
+    `yield` or a generator function?
 
 ## Minimal example from scratch
 Such curiosity would help us demystify the implementation of generators. Let's try to write
-a minimal class from scratch to replace the generator function `my_simple_range`.
+a minimal class, from scratch, to replace the generator function `my_simple_range`.
 
 === "Generator Class"
 
@@ -151,5 +156,5 @@ cognitive, initial fixed cost of learning suspendable functions.
 
 ## Footnotes
 [^1]:
-    If a generator object is created by calling a generator function, then the corresponding
-    class is only implicitly defined.
+    Quick answer: if a generator object is created by calling a generator function, 
+    then the corresponding class is only implicitly defined.
