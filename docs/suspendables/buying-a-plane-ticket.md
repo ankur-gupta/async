@@ -14,7 +14,7 @@ We could do this task serially and synchronously — send a request to one serve
 send another request to another server and wait for it to reply and then the same for the third server.
 Now, that we have the prices from all three servers, we can find the lowest price. 
 
-```python title="Serial & synchronous — pseudocode"
+```python title="Pseudocode"
 function get_price(vendor)
     request = create_request(vendor)
     request.wait()
@@ -46,7 +46,7 @@ query to finish before doing anything downstream.
 Depending on the programming language, we can implement parallelism using either processes and 
 threads. The pseudocode below uses processes. 
 
-```python title="Parallel & synchronous — pseudocode (using processes)"
+```python title="Pseudocode"
 function get_price(vendor)
     request = create_request(vendor)
     request.wait()
@@ -127,7 +127,7 @@ suspendable. The pseudocode below has janky syntax. This is purposeful as we wil
 the next section on [syntax](/suspendables/syntax/). For now, we will ignore the syntax issues and 
 focus on how asychronous programming can solve our problem even more efficiently than parallelism.
 
-```python title="Not Parallel & asynchronous — pseudocode"
+```python title="Pseudocode"
 suspendable function get_price(vendor)
     request = create_request(vendor)
     release control

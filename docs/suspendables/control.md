@@ -1,6 +1,6 @@
 # Control
-!!! summary "Control"
-    Who gets the control when a suspendable entity suspends execution ?
+???+ question "Control"
+    Who gets the control when a _suspendable_ entity suspends execution ?
 
 In our opinion, this key question is often avoided by most other tutorials, which makes 
 learning unncessarily difficult. We alluded to this in the 
