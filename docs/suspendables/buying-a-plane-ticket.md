@@ -130,7 +130,7 @@ focus on how asychronous programming can solve our problem even more efficiently
 ```python title="Pseudocode"
 suspendable function get_price(vendor)
     request = create_request(vendor)
-    release control
+    release control  # suspension/control transfer point
     request.wait()
     print(f'Received price from the vendor {vendor}!')
     return request.result

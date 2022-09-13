@@ -43,7 +43,7 @@ x.__next__()
 [Iterator protocol](https://docs.python.org/3/glossary.html#term-iterator)
 requires the `__next__` method to be [implemented](https://docs.python.org/3/library/collections.abc.html#collections-abstract-base-classes), along with the `__iter__` method.
 
-You can define an Iterator independently of any generator or asynchronous programming concepts
+You can define an `Iterator` independently of any generator or asynchronous programming concepts
 by simply defining the `__next__` and `__iter__` methods in a class. The following example
 shows such a class that can produce arbitrarily many squares of sequential natural numbers, on
 demand. All without using any generators or special keywords.
@@ -91,6 +91,27 @@ Generators are
 [based](https://docs.python.org/3/library/collections.abc.html#collections.abc.Iterator)
 on iterators but iterators are not based on generators. So, a generator is an iterator but an
 iterator may not necessarily be a generator.
+
+```python
+from collections.abc import Iterator
+
+def example_generator_function():
+    yield 1
+
+gen = example_generator_function()
+
+isinstance(gen, Iterator)
+# True
+
+gen.__iter__
+# <method-wrapper '__iter__' of generator object at 0x105e58190>
+
+gen.__next__
+# <method-wrapper '__next__' of generator object at 0x105e58190>
+
+next(gen)
+# 1
+```
 
 Since generator is an iterator, we can drive a generator using a `for` loop instead of calling
 `next` ourselves. The following simple implementation of a range function demonstrates this.

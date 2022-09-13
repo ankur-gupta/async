@@ -94,7 +94,6 @@ The suspendable `mashed_potatoes` in both examples is an Explicit Control Transf
 The idea of explicit control transfer is best understood in contrast to the implicit control 
 transfer.
 
-
 ## Implicit Control Transfer Suspendables
 The [Plane Ticket](/suspendables/buying-a-plane-ticket/) example is the perfect example to 
 demonstrate the need for implicit control transfer suspendables. We previously discussed this 
@@ -312,6 +311,16 @@ _asynchronous generators_, as described in this
 [bug report](https://github.com/python/cpython/issues/71430) and discussed in
 [PEP 492](https://www.python.org/dev/peps/pep-0492/#why-aiter-does-not-return-an-awaitable).
 We will discuss this illumintaing oddity later in the course.
+
+## Suspension point (aka Control transfer point)
+A suspendable function cannot willy-nilly suspend execution (and allow control transfer) anywhere. 
+The control can only be transferred away from the suspendable function at the 
+designated _suspension points_ aka _control transfer points_. 
+
+In our pseudocode, for both explicit and implicit control transfer suspendables, 
+this suspension point is designated by the special keywords `release control`.
+When we move from pseudocode to real python code, we will see actual python keywords that 
+indicate the suspension points.
 
 ## We're not done yet
 Before we begin discussing python generators and coroutines, we need to solve the problem of

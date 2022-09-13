@@ -31,34 +31,81 @@ type(example_coroutine_function)
 # function
 ```
 
-### Automatic drive
 The coroutine function `example_coroutine_function` is a suspendable and an extended function, 
 analogous to a generator function. Calling `example_coroutine_function` does not execute 
 the contents of the function. Instead, it returns a coroutine object.
+We need some other mechanism to execute the contents of `example_coroutine_function`. 
 
 ```python
-x = example_coroutine_function()
-print(x)
+coro = example_coroutine_function()
+print(coro)
 # <coroutine object example_coroutine_function at 0x111b625c0>
 
-type(x)
+type(coro)
 # coroutine
 ```
 
-We need some other mechanism to execute the contents of `example_coroutine_function`. 
-For generators, we could use `next` or `send`. The coroutine equivalent is bit more complicated.
-This is because we need an event loop which will invisibly and implicitly transfer control.
+### Coroutine does not implement the `Iterator` protocol
+For [generators](/generators/a-better-way-to-drive/#__next__-is-a-part-of-iterator-protocol), 
+we could use `next`, which is part of the 
+[`Iterator` protocol](https://docs.python.org/3/glossary.html#term-iterator). 
+Coroutine does not implement the `Iterator` protocol. Compare the following code 
+with the corresponding code for a 
+[generator](/generators/a-better-way-to-drive/#generator-implements-iterator-protocol).
+
+```python
+from collections.abc import Iterator
+
+isinstance(coro, Iterator)
+# False
+
+coro.__iter__
+# AttributeError: 'coroutine' object has no attribute '__iter__'
+
+coro.__next__
+# AttributeError: 'coroutine' object has no attribute '__next__'
+
+next(coro)
+# TypeError: 'coroutine' object is not an iterator
+```
+
+### Automatic drive
+We cannot use `next` to drive coroutine objects. The coroutine equivalent to `next` 
+is bit more complicated because imnplicit control transfer suspendables need an event loop.
+The event loop invisibly and implicitly transfers the control between coroutines.
 We have many choices for an event loop but we will use `asyncio`, which is the default 
 event loop that comes with the python standard library.
 
 ```python
 import asyncio
-y = asyncio.run(example_coroutine_function())
-print(y)
+output = asyncio.run(example_coroutine_function())
+print(output)
 # 1
 ```
 
 ### Manual drive
+We previously saw that for generators, `next(generator_object)` was equivalent to
+`generator_object.send(None)`. For coroutines, `next` doesn't work but `send` does.
+`send` method has the same semantics as with 
+[generators](/generators/mechanics-by-examples/#drive-using-send):
+
+- `send` requires one argument
+- coroutine needs to be primed before we can send a non-`None` value
+- `send(None)` works but the value is received by `await` (we'll study `await` [later](/coroutines/introduction/#await-is-like-yield))
+
+```python
+example_coroutine_function().send()
+# TypeError: coroutine.send() takes exactly one argument (0 given)
+
+example_coroutine_function().send('something')
+# TypeError: can't send non-None value to a just-started coroutine
+
+# There was no `await` in the coroutine function
+example_coroutine_function().send(None)  
+# StopIteration: 1
+```
+
+### Custom drive
 Using a proper event loop such as the one provided by `asyncio` is the intended way to drive 
 a coroutine. However, we could 
 [write our own little event loop](https://stackoverflow.com/questions/52783605/how-to-run-a-coroutine-outside-of-an-event-loop) 
@@ -72,17 +119,20 @@ def drive(coroutine_object):
         except StopIteration as e:
             return e.value
 
-z = drive(example_coroutine_function())
-print(z)
+output = drive(example_coroutine_function())
+print(output)
 # 1
 ```
 There are two important things to note here:
 
-- [x] We used a `while` loop to make our event loop, just like we did in our pseudocode for the
+- We used a `while` loop to make our event loop, just like we did in our pseudocode for the
 [improved implementation](/suspendables/control/#improved-implementation) of the plane 
 ticket example.
-- [x] The `.send` method and `StopIteration` work for a coroutine object, just like 
+- The `.send` method and `StopIteration` work for a coroutine object, just like 
 they did for the [generator object](/generators/mechanics-by-examples/#drive-using-send).
+
+Finally, our event loop is very rudimentary and will not work even with slightly more 
+complicated toy examples.
 
 ## Confusing nomenclature
 Like the word _generator_, the word _coroutine_ is ambiguous.
@@ -102,7 +152,9 @@ It's best to use the word _coroutine_ as an adjective instead of a noun.
 ## `await` is like `yield`
 Like `yield`, `await` is a control transfer point. You can suspend control at an `await`. 
 `await` can also accept values. There is one difference — `yield` allowed us to yield 
-any arbitrary value but `await` only allows us to await an `Awaitable` object.
+any arbitrary value including 
+[nothing](/generators/mechanics-by-examples/#must-we-return-something-with-yield) 
+but `await` only allows us to await an `Awaitable` object.
 
 === "Fails"
 
@@ -117,9 +169,22 @@ any arbitrary value but `await` only allows us to await an `Awaitable` object.
     # TypeError: object int can't be used in 'await' expression
     ```
 
+=== "Also Fails"
+
+    ```python
+    async def print_await_print():
+        print('Starting execution')
+        await  # await needs something to await
+        print('Ending execution')
+    # SyntaxError: invalid syntax
+
+    ```
+
 === "Works"
 
     ```python
+    import asyncio
+
     async def print_sleep_print():
         print('Starting execution')
         await asyncio.sleep(1)  # This is a coroutine (which is an Awaitable)
@@ -139,9 +204,44 @@ A coroutine is also an `Awaitable` object as you can see from the
 [definition](https://github.com/python/cpython/blob/d5d3249e8a37936d32266fa06ac20017307a1f70/Lib/_collections_abc.py#L114)
 of a `Coroutine`.
 
+## `await` is also a two-way street
+=== "Fails"
+
+    ```python
+    import asyncio
+
+    async def await_sleep():
+        print('Starting execution')
+        value1 = await asyncio.sleep(1, result=2)
+        print(value1)
+        value2 = await asyncio.sleep(1, result=3)
+        print(value2)
+        print('Ending execution')
+    
+    # This will fail because `asyncio.sleep(1)` needs an event loop!
+    await_sleep().send(None)
+    # RuntimeError: no running event loop
+    ```
+
+=== "Works"
+
+```python
+async def no_await(x):
+    return x * x
+
+async def await_no_await():
+    print('Starting execution')
+    value1 = await no_await(2)
+    print(value1)
+    value2 = await no_await(3)
+    print(value2)
+    print('Ending execution')
+
+await_no_await().send(None)
+
+```
 
 
-Coroutine does not have a `__next__` method.
 
 From https://github.com/python/cpython/blob/d5d3249e8a37936d32266fa06ac20017307a1f70/Lib/_collections_abc.py#L57:
 ```python
@@ -177,6 +277,9 @@ Also from https://docs.python.org/3/reference/expressions.html#yield-expressions
 
 https://docs.python.org/3/whatsnew/3.6.html?highlight=yield#pep-525-asynchronous-generators
 "A notable limitation of the Python 3.5 implementation is that it was not possible to use await and yield in the same function body. In Python 3.6 this restriction has been lifted, making it possible to define asynchronous generators:" -->
+
+
+<!-- Deals with async generators: important https://peps.python.org/pep-0492/#why-aiter-does-not-return-an-awaitable -->
 
 
 ## Footnotes

@@ -127,8 +127,6 @@ markdown_extensions:
   # https://squidfunk.github.io/mkdocs-material/reference/data-tables/#configuration
   - tables
 
-
-
 plugins:
   # https://squidfunk.github.io/mkdocs-material/setup/adding-a-git-repository/#revisioning
   - git-revision-date-localized:
@@ -159,7 +157,10 @@ nav:
     - Mechanics by Examples: generators/mechanics-by-examples.md
     - yield from: generators/yield-from.md
     - Examples: generators/examples.md
-    - History: generators/history.md
+    # - History: generators/history.md
   - Coroutines:
     - Introduction: coroutines/introduction.md
     - Event Loop: coroutines/eventloop.md
+  - Review:
+    - Generators vs Coroutines: review/generators-v-coroutines.md
+    - Asynchronous Generator: review/asynchronous-generator.md
