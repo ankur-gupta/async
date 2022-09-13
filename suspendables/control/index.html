@@ -1,0 +1,1577 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.svg">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.4">
+    
+    
+      
+        <title>Control - Asynchronous Programming in Python</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6b80c2a2.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#control" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Asynchronous Programming in Python" class="md-header__button md-logo" aria-label="Asynchronous Programming in Python" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17 3 5.25 4.5L17 12l5.25 4.5L17 21v-3h-2.74l-2.82-2.82 2.12-2.12L15.5 15H17V9h-1.5l-9 9H2v-3h3.26l9-9H17V3M2 6h4.5l2.82 2.82-2.12 2.12L5.26 9H2V6Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Asynchronous Programming in Python
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Control
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ankur-gupta/async" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ankur-gupta/async
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Get Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cooking-is-like-programming/" class="md-tabs__link md-tabs__link--active">
+        Suspendables
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../generators/introduction/" class="md-tabs__link">
+        Generators
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../coroutines/introduction/" class="md-tabs__link">
+        Coroutines
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../review/generators-v-coroutines/" class="md-tabs__link">
+        Review
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Asynchronous Programming in Python" class="md-nav__button md-logo" aria-label="Asynchronous Programming in Python" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17 3 5.25 4.5L17 12l5.25 4.5L17 21v-3h-2.74l-2.82-2.82 2.12-2.12L15.5 15H17V9h-1.5l-9 9H2v-3h3.26l9-9H17V3M2 6h4.5l2.82 2.82-2.12 2.12L5.26 9H2V6Z"/></svg>
+
+    </a>
+    Asynchronous Programming in Python
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ankur-gupta/async" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ankur-gupta/async
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Get Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Get Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Get Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../why-is-it-difficult/" class="md-nav__link">
+        Why is it difficult?
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Suspendables
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Suspendables" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Suspendables
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking-is-like-programming/" class="md-nav__link">
+        Cooking is like programming
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../buying-a-plane-ticket/" class="md-nav__link">
+        Buying a plane ticket
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../suspendables/" class="md-nav__link">
+        Suspendables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Control
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Control
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#explicit-control-transfer-suspendables" class="md-nav__link">
+    Explicit Control Transfer Suspendables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implicit-control-transfer-suspendables" class="md-nav__link">
+    Implicit Control Transfer Suspendables
+  </a>
+  
+    <nav class="md-nav" aria-label="Implicit Control Transfer Suspendables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#there-is-still-room-for-improvement" class="md-nav__link">
+    There is still room for improvement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#improved-implementation" class="md-nav__link">
+    Improved implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#this-is-too-common-a-scenario" class="md-nav__link">
+    This is too common a scenario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-does-this-relate-to-implicit-control-transfer-suspendables" class="md-nav__link">
+    How does this relate to Implicit Control Transfer Suspendables?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explicit-v-implicit-control-transfer" class="md-nav__link">
+    Explicit v. Implicit Control Transfer
+  </a>
+  
+    <nav class="md-nav" aria-label="Explicit v. Implicit Control Transfer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#one-unified-syntax-for-both-explicit-implicit-control-tranfer" class="md-nav__link">
+    One unified syntax for both explicit &amp; implicit control tranfer?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suspension-point-aka-control-transfer-point" class="md-nav__link">
+    Suspension point (aka Control transfer point)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#were-not-done-yet" class="md-nav__link">
+    We're not done yet
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#footnotes" class="md-nav__link">
+    Footnotes
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../syntax/" class="md-nav__link">
+        Syntax
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../review/" class="md-nav__link">
+        Review
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Generators
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Generators" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Generators
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generators/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generators/a-better-way-to-drive/" class="md-nav__link">
+        A Better Way to Drive
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generators/generator-class/" class="md-nav__link">
+        Generator Class
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generators/mechanics-by-examples/" class="md-nav__link">
+        Mechanics by Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generators/yield-from/" class="md-nav__link">
+        yield from
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generators/examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Coroutines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Coroutines" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Coroutines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coroutines/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coroutines/eventloop/" class="md-nav__link">
+        Event Loop
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Review
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Review" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Review
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/generators-v-coroutines/" class="md-nav__link">
+        Generators vs Coroutines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/asynchronous-generator/" class="md-nav__link">
+        Asynchronous Generator
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#explicit-control-transfer-suspendables" class="md-nav__link">
+    Explicit Control Transfer Suspendables
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#implicit-control-transfer-suspendables" class="md-nav__link">
+    Implicit Control Transfer Suspendables
+  </a>
+  
+    <nav class="md-nav" aria-label="Implicit Control Transfer Suspendables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#there-is-still-room-for-improvement" class="md-nav__link">
+    There is still room for improvement
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#improved-implementation" class="md-nav__link">
+    Improved implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#this-is-too-common-a-scenario" class="md-nav__link">
+    This is too common a scenario
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-does-this-relate-to-implicit-control-transfer-suspendables" class="md-nav__link">
+    How does this relate to Implicit Control Transfer Suspendables?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#explicit-v-implicit-control-transfer" class="md-nav__link">
+    Explicit v. Implicit Control Transfer
+  </a>
+  
+    <nav class="md-nav" aria-label="Explicit v. Implicit Control Transfer">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#one-unified-syntax-for-both-explicit-implicit-control-tranfer" class="md-nav__link">
+    One unified syntax for both explicit &amp; implicit control tranfer?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#suspension-point-aka-control-transfer-point" class="md-nav__link">
+    Suspension point (aka Control transfer point)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#were-not-done-yet" class="md-nav__link">
+    We're not done yet
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#footnotes" class="md-nav__link">
+    Footnotes
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+  
+                
+
+  <a href="https://github.com/ankur-gupta/async/edit/main/docs/suspendables/control.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="control">Control<a class="headerlink" href="#control" title="Permanent link">&para;</a></h1>
+<details class="question" open="open">
+<summary>Control</summary>
+<p>Who gets the control when a <em>suspendable</em> entity suspends execution ?</p>
+</details>
+<p>In our opinion, this key question is often avoided by most other tutorials, which makes 
+learning unncessarily difficult. We alluded to this in the 
+<a href="/why-is-it-difficult/#underhanded-treatment-of-control-flow-and-state">beginning</a>.</p>
+<p>In this course, we use new terminology to answer this question.
+Specifically, we subcategorize suspendables on the basis of control flow:</p>
+<ol>
+<li><em>Explicit Control Transfer Suspendables</em></li>
+<li><em>Implicit Control Transfer Suspendables</em></li>
+</ol>
+<p>We use python-like pseudocode instead of real python code throughout this page. 
+We cannot use real python code yet because we haven't answered the question of
+<a href="/suspendables/syntax/">syntax</a>.</p>
+<h2 id="explicit-control-transfer-suspendables">Explicit Control Transfer Suspendables<a class="headerlink" href="#explicit-control-transfer-suspendables" title="Permanent link">&para;</a></h2>
+<p>Let's re-visit our <a href="/suspendables/cooking-is-like-programming/#salad-mashed-potatoes">Salad &amp; Mashed Potatoes</a>
+example from before. We previously noted that making <code>mashed_potatoes</code> a suspendable recipe
+would be more efficient because we can execute <code>salad</code> while the potatoes are boiling.
+In order to do so, we need to break up <code>boil_potatoes</code> into three pieces:</p>
+<div class="admonition note">
+<p class="admonition-title"><code>boil_potatoes</code></p>
+<dl>
+<dt><code>start_boiling_potatoes</code></dt>
+<dd>Put the potatoes and water in a saucepan and set the auto shutoff timer for 15 minutes</dd>
+<dt><code>release control</code></dt>
+<dd>while the potatoes are boiling</dd>
+<dt><code>finish_boiling_potatoes</code></dt>
+<dd>Drain the hot water from the saucepan and extract boiled potatoes</dd>
+</dl>
+</div>
+<p>We can write our code in one of two ways as shown below.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Example 1</label><label for="__tabbed_1_2">Example 2</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><pre><code><strong>function</strong> salad
+    chop_lettuce_into_the_bowl()
+    chop_tomato_into_the_bowl()
+    chop_cucumber_into_the_bowl()<br/>
+<strong>suspendable function</strong> mashed_potatoes
+    peel_potatoes()
+    cut_potatoes()
+    start_boiling_potatoes(minutes=15, auto_shutoff=<strong>true</strong>)
+    <strong>release control</strong>  # to the caller
+    finish_boiling_potatoes()
+    mash_potatoes()
+    stir_potatoes_with_butter()<br/>
+<strong>function</strong> main
+    mashed_potatoes()
+    salad()
+    mashed_potatoes()  # resume suspended run<br/>
+main()
+</code></pre></p>
+</div>
+<div class="tabbed-block">
+<p><pre><code><strong>function</strong> salad
+    chop_lettuce_into_the_bowl()
+    chop_tomato_into_the_bowl()
+    chop_cucumber_into_the_bowl()<br/>
+<strong>suspendable function</strong> mashed_potatoes
+    peel_potatoes()
+    cut_potatoes()
+    start_boiling_potatoes(minutes=15, auto_shutoff=<strong>true</strong>)
+    <strong>release control to</strong> salad()
+    finish_boiling_potatoes()
+    mash_potatoes()
+    stir_potatoes_with_butter()<br/>
+<strong>function</strong> main
+    mashed_potatoes()<br/>
+main()
+</code></pre></p>
+</div>
+</div>
+</div>
+<p>In Example 1, control is transferred from <code>main</code> to <code>mashed_potatoes</code>, which transfers the
+control back to <code>main</code> once the potatoes are set to boil. <code>main</code> then sends the control to
+<code>salad</code> which finishes its job and returns control back to <code>main</code> like any traditional
+function. <code>main</code> then calls <code>mashed_potatoes</code> once again to resume the suspended run<sup id="fnref:1"><a class="footnote-ref" href="#fn:1">1</a></sup>.</p>
+<p>In Example 2, control is transferred from <code>main</code> to <code>mashed_potatoes</code>, which then transfers
+the control to <code>salad</code> while the potatoes are boiling instead of returning control back to
+<code>main</code>. <code>salad</code> finishes its job and returns control back to its caller
+which happens to be <code>mashed_potatoes</code>. Finally, <code>mashed_potatoes</code> then finishes its job
+and transfers control back to <code>main</code> at the end.</p>
+<p>In both examples, the suspendable function transfers the control <strong>explicitly</strong> and
+<strong>deterministically</strong> from itself to another known function. In Example 1, during suspension,
+the control transfers from <code>mashed_potatoes</code> to its caller, <code>main</code>. In Example 2,
+the control transfers from <code>mashed_potatoes</code> to <code>salad</code>. In both of these examples,
+the programmer knows deterministically which line of the program would execute immediately after
+the control is released during suspension without having to run the code at all.</p>
+<p>The suspendable <code>mashed_potatoes</code> in both examples is an Explicit Control Transfer Suspendable.
+The idea of explicit control transfer is best understood in contrast to the implicit control 
+transfer.</p>
+<h2 id="implicit-control-transfer-suspendables">Implicit Control Transfer Suspendables<a class="headerlink" href="#implicit-control-transfer-suspendables" title="Permanent link">&para;</a></h2>
+<p>The <a href="/suspendables/buying-a-plane-ticket/">Plane Ticket</a> example is the perfect example to 
+demonstrate the need for implicit control transfer suspendables. We previously discussed this 
+classic example to show the benefit of asynchronous programming over serial and parallel 
+programming. We will now use this classic example to demonstrate the need for implicit control 
+transfer suspendables as well.</p>
+<p>The <a href="/suspendables/buying-a-plane-ticket/#not-parallel-asynchronous">pseudocode</a> we prevoisly 
+saw is simply the naive implementation shown below. We will now discuss the drawbacks of the 
+naive implementation and then provide an improved implementation. </p>
+<p>As we discussed before, the pseudocode purposefully has janky syntax, as we will explain in 
+the next section on <a href="/suspendables/syntax/">syntax</a>. For now, we will ignore the syntax issues and
+focus on control transfer.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Naive implementation</label><label for="__tabbed_2_2">Improved implementation</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">Pseudocode</span><pre><span></span><code><span class="n">suspendable</span> <span class="n">function</span> <span class="n">get_price</span><span class="p">(</span><span class="n">vendor</span><span class="p">)</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">create_request</span><span class="p">(</span><span class="n">vendor</span><span class="p">)</span>
+    <span class="n">release</span> <span class="n">control</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Received price from the vendor </span><span class="si">{</span><span class="n">vendor</span><span class="si">}</span><span class="s1">!&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">result</span>
+
+<span class="c1"># Initiate all requests</span>
+<span class="n">get_price</span><span class="p">(</span><span class="n">red</span><span class="p">)</span>
+<span class="n">get_price</span><span class="p">(</span><span class="n">green</span><span class="p">)</span>
+<span class="n">get_price</span><span class="p">(</span><span class="n">blue</span><span class="p">)</span>
+
+<span class="c1"># Resume suspended functions and wait for them to complete</span>
+<span class="n">red_price</span> <span class="o">=</span> <span class="n">get_price</span><span class="p">(</span><span class="n">red</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+<span class="n">green_price</span> <span class="o">=</span> <span class="n">get_price</span><span class="p">(</span><span class="n">green</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+<span class="n">blue_price</span> <span class="o">=</span> <span class="n">get_price</span><span class="p">(</span><span class="n">blue</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+
+<span class="c1"># Find the best price</span>
+<span class="c1"># Could we have started this computation with just two prices?</span>
+<span class="nb">min</span><span class="p">([</span><span class="n">red_price</span><span class="p">,</span> <span class="n">green_price</span><span class="p">,</span> <span class="n">blue_price</span><span class="p">])</span>
+
+<span class="c1"># Did you notice the janky syntax in this pseudocode? This is why we need </span>
+<span class="c1"># to answer the syntax question in the next section.</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><span class="filename">Pseudocode</span><pre><span></span><code><span class="n">suspendable</span> <span class="n">function</span> <span class="n">get_price</span><span class="p">(</span><span class="n">vendor</span><span class="p">)</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">create_request</span><span class="p">(</span><span class="n">vendor</span><span class="p">)</span>
+    <span class="k">while</span> <span class="n">request</span><span class="o">.</span><span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">release</span> <span class="n">control</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Received price from the vendor </span><span class="si">{</span><span class="n">vendor</span><span class="si">}</span><span class="s1">!&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">result</span>
+
+<span class="c1"># Suspend-resume loop until all requests are done</span>
+<span class="n">waiting</span> <span class="o">=</span> <span class="p">[</span><span class="n">red</span><span class="p">,</span> <span class="n">green</span><span class="p">,</span> <span class="n">blue</span><span class="p">]</span>
+<span class="n">best_price</span> <span class="o">=</span> <span class="n">infinity</span>
+<span class="k">while</span> <span class="n">waiting</span><span class="p">:</span>
+    <span class="c1"># Check to see if the query has finished</span>
+    <span class="n">vendor</span> <span class="o">=</span> <span class="n">waiting</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+    <span class="n">price</span> <span class="o">=</span> <span class="n">get_price</span><span class="p">(</span><span class="n">vendor</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">price</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>  
+        <span class="c1"># If query didn&#39;t finish yet, add it to the waiting list again.</span>
+        <span class="c1"># We&#39;ll check on it again.</span>
+        <span class="n">waiting</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">vendor</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># If query returned, start comparing. No need to wait for other</span>
+        <span class="c1"># queries to finish.</span>
+        <span class="k">if</span> <span class="n">price</span> <span class="o">&lt;</span> <span class="n">best_price</span><span class="p">:</span>
+            <span class="n">best_price</span> <span class="o">=</span> <span class="n">price</span>
+
+<span class="c1"># Did you notice the janky syntax in this pseudocode? This is why we need </span>
+<span class="c1"># to answer the syntax question in the next section.</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h4 id="there-is-still-room-for-improvement">There is still room for improvement<a class="headerlink" href="#there-is-still-room-for-improvement" title="Permanent link">&para;</a></h4>
+<p>Even though our naive implementation of the asychronous approach was much better than 
+the serial and parallel approaches, the naive implementation is still inefficient. </p>
+<p>We need to perform a few comparison operations in order to compute the minimum of three numbers. 
+These comparison operations also cost time. In the naive approach, we waited for all three 
+asynchronous queries to finish before we computed the minimum price. This idle waiting is wasteful.</p>
+<p>Just after the 400ms mark, we have the prices from Vendors Green and Blue but we don't have the
+price from Vendor Red. We needed to wait another 600ms before we obtained the price from Vendor Red.
+We could have computed the smaller of the blue and green prices during that 600ms.</p>
+<p>However, the naive approach waits for the queries to finish in a very particular, distinguished 
+order - it waits for red, then green, then blue. This forces us to idly wait during that 600ms 
+period. If we re-order the vendors to wait for green first, then blue, and then red, we may be able 
+to use that 600ms otherwise idle time to compare the blue and green prices. But, even 
+re-ordering the queries is not a practical solution because we may not know the vendor latencies 
+pre-emptively.</p>
+<p>The benefit of utilizing the idle time to perform comparisons seems overkill for our toy example 
+comprising of only three queries. But, imagine the real-world case of our own Kayak-type website.
+We will to perform thousands of comparisons among thousands of prices in order to compute the 
+mimimum price. It would be noticelably slow to perform the thousands of comparisons only after 
+all the queries have finished.</p>
+<h3 id="improved-implementation">Improved implementation<a class="headerlink" href="#improved-implementation" title="Permanent link">&para;</a></h3>
+<p>The main difference between the naive and the improved implementation is that the improved 
+implementation adds a <code>while</code> loop. Improved implementation does not wait for a query to 
+complete. The <code>while</code> loop checks (but doesn't wait) to see if a query has completed. If it has 
+completed, the loop updates the current minimum price. If the query has not yet completed, 
+the loop puts back the query in the waiting list to be checked again at a later time.</p>
+<p>The <code>while</code> loop runs really fast compared to the queries. Therefore, roughly around 300ms mark, 
+the loop will discover that the query to the Vendor Green is finished and the loop will remove 
+Vendor Green from the waiting list. Then roughly, at 400ms mark, the loop will remove Vendor Blue
+from the waiting list and compare the prices from the Vendors Green and Blue to compute the current
+minmum price. This comparison between the prices from the Vendors Green and Blue happens much 
+before the query to Vendor Red finishes. Finally, at 1000ms, the loop will have gone through all 
+the queries and will have computed the bets price.</p>
+<h3 id="this-is-too-common-a-scenario">This is too common a scenario<a class="headerlink" href="#this-is-too-common-a-scenario" title="Permanent link">&para;</a></h3>
+<p>Looping through events is an extremely common scenario and for the same reason -- in real life, we 
+cannot know, in an <em>a priori</em> manner, the chronological order of task completion. Therefore, we 
+need to loop over the tasks to determine which task needs to be assigned to the processor.
+This loop is called the <em>event loop</em>.</p>
+<p>The pseudocode <code>while</code> loop we just disucssed is called a rudimentary form of the
+industrial-strength <em>event loop</em> that you would find in asynchronous programming packages such
+as <a href="https://docs.python.org/3/library/asyncio.html">asyncio</a> or
+<a href="https://github.com/MagicStack/uvloop">uvloop</a>. </p>
+<p>Every programmer can write their own custom loop; after all, we just did so in pseudocode. 
+So, why have the programming language provide whole machinery to run suspendable tasks in an 
+event loop? </p>
+<p>Because real-world scenarios are more complicated. For example, a suspendable function could call
+another suspendable function, which could call another suspendable function and so on. An event 
+loop needs to keep track of all these suspendable functions properly and give all of them some 
+processing time. </p>
+<p>Since this scenario is too common, Python 3 provides, as a first class feature, the syntax and 
+packages needed to run an event loop without having to write a custom event loop yourself. 
+That said, third party event loops are available, such as 
+<a href="https://github.com/MagicStack/uvloop">uvloop</a> and <a href="https://trio.readthedocs.io/en/stable/">trio</a>. 
+And, of course, you can write your own custom loop 
+from scratch as demonstrated in a <a href="https://www.youtube.com/watch?v=MCs5OvhV9S4">live coding session</a>
+at PyCon 2015 by David Beazley<sup id="fnref:2"><a class="footnote-ref" href="#fn:2">2</a></sup>.</p>
+<h3 id="how-does-this-relate-to-implicit-control-transfer-suspendables">How does this relate to Implicit Control Transfer Suspendables?<a class="headerlink" href="#how-does-this-relate-to-implicit-control-transfer-suspendables" title="Permanent link">&para;</a></h3>
+<p>The suspendable functions in our
+<a href="/suspendables/control/#improved-implementation">improved implementation</a> transfer control to the
+<code>while</code> loop. The event loop can only coordinate the work if the control is transferred from the 
+suspendable function to the event loop. If you transfer the control to some other entity besides 
+the event loop, then the event loop cannot coordinate the work properly. </p>
+<p>But, the event loop typically doesn't really do much work for itself. Its main job is to 
+transfer the control from one suspendable function to another. We could argue that the event loop
+facilitates control transfer between suspendable functions. In other words, the control is 
+<em>implicitly</em> transferred between suspendable functions via the event loop.
+In real python code, the event loop is nearly invisible to the end user. As a result, the end user 
+perceives the control being transferred between their user-written suspendable functions. </p>
+<p>It often not be possible to pre-emptively tell which suspendable function (among a whole
+list of suspendable functions waiting for resumption) will finish first. Thus, it's not possible
+to deterministically say which suspendable function will transfer the control to which other 
+suspendable function, via the event loop. In other words, the control is transferred 
+<strong>non-deterministically</strong> amongst the suspendable functions.</p>
+<p>Finally, uou could reasonably argue that the pseudocode in the
+<a href="/suspendables/control/#improved-implementation">improved implementation</a> actually uses explicit 
+control transfer. This is correct! Implicit control transfer mechanism is indeed built upon
+the explicit control transfer mechanism with the event loop being the invisble control tranfer 
+coordinator.</p>
+<h2 id="explicit-v-implicit-control-transfer">Explicit <em>v.</em> Implicit Control Transfer<a class="headerlink" href="#explicit-v-implicit-control-transfer" title="Permanent link">&para;</a></h2>
+<p>Some asynchronous tasks, such as the
+<a href="/suspendables/control/#explicit-control-transfer-suspendables">Salad &amp; Mashed Potatoes</a>
+example, do not benefit for an event loop<sup id="fnref:3"><a class="footnote-ref" href="#fn:3">3</a></sup>. There is no need to force such functions to
+run within an event loop.</p>
+<p>Some asynchronous tasks, such as the <a href="/suspendables/buying-a-plane-ticket/">Plane Ticket</a> 
+example, almost always require an event loop to run efficiently. It is inefficient to not 
+run these functions within an event loop<sup id="fnref:4"><a class="footnote-ref" href="#fn:4">4</a></sup>.</p>
+<h3 id="one-unified-syntax-for-both-explicit-implicit-control-tranfer">One unified syntax for both explicit &amp; implicit control tranfer?<a class="headerlink" href="#one-unified-syntax-for-both-explicit-implicit-control-tranfer" title="Permanent link">&para;</a></h3>
+<p>While there is a natural distinction between the type of suspendable functions that require
+an event loop and those who don't, there appears to be no reason why the syntax for explicit
+and implicit control transfer suspendables should be different. It is somewhat reasonable to
+expect that a programming language provide only one type of suspendable function with the same
+set of reserved keywords for both explicit and implicit control transfer. Perhaps, a
+suspendable function's control transfer can be made explicit or implicit automatically 
+depending on whether or not it interacts with an event loop?</p>
+<p>This happens to <em>not</em> be the case with python, as of writing this course. The following table
+describes how python 3.8.5+ bifurcates the concept of suspendables into two specialized
+entities, each with its own set of keywords.</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Pseudocode (Explicit &amp; Implicit)</th>
+<th>Python (Explicit)</th>
+<th>Python (Implicit)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Name</td>
+<td>Suspendable</td>
+<td>Generator</td>
+<td>Coroutine</td>
+</tr>
+<tr>
+<td>Requires event loop</td>
+<td>Yes &amp; No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>Function definer</td>
+<td><code>function</code></td>
+<td><code>def</code></td>
+<td><code>def</code></td>
+</tr>
+<tr>
+<td>Suspendable modifier</td>
+<td><code>suspendable</code></td>
+<td>-</td>
+<td><code>async</code></td>
+</tr>
+<tr>
+<td>Control transfer to caller</td>
+<td><code>release control</code></td>
+<td><code>yield</code></td>
+<td>-</td>
+</tr>
+<tr>
+<td>Control transfer to another</td>
+<td><code>release control to</code></td>
+<td><code>yield from</code></td>
+<td><code>await</code></td>
+</tr>
+</tbody>
+</table>
+<p>In python, explicit control transfer suspendables are implemented as generators and 
+implicit control transfer suspendables are implemented as coroutines<sup id="fnref:5"><a class="footnote-ref" href="#fn:5">5</a></sup>. </p>
+<p>The reason for this bifurcation is complicated involving syntactical, historical,
+and design considerations. Just after <a href="https://www.python.org/dev/peps/pep-0342/">PEP 342</a>,
+the same <code>yield from</code> syntax was used for both (explicit) generators and (implicit) coroutines.
+But, using the same syntax for both generators and coroutines created
+<a href="https://github.com/python/cpython/issues/68588">problems</a> and confusion, as mentioned in
+<a href="https://www.python.org/dev/peps/pep-0492/#rationale-and-goals">PEP 492</a>. PEP 492 finally
+separated coroutines from generators. We will discuss some of these syntactical, historical,
+and design considerations later in the course.</p>
+<p>One weird artifact of this bifurcation is that python may allow a suspendable to be
+both explicit and implicit at the same time. This is what python calls
+<em>asynchronous generators</em>, as described in this 
+<a href="https://github.com/python/cpython/issues/71430">bug report</a> and discussed in
+<a href="https://www.python.org/dev/peps/pep-0492/#why-aiter-does-not-return-an-awaitable">PEP 492</a>.
+We will discuss this illumintaing oddity later in the course.</p>
+<h2 id="suspension-point-aka-control-transfer-point">Suspension point (aka Control transfer point)<a class="headerlink" href="#suspension-point-aka-control-transfer-point" title="Permanent link">&para;</a></h2>
+<p>A suspendable function cannot willy-nilly suspend execution (and allow control transfer) anywhere. 
+The control can only be transferred away from the suspendable function at the 
+designated <em>suspension points</em> aka <em>control transfer points</em>. </p>
+<p>In our pseudocode, for both explicit and implicit control transfer suspendables, 
+this suspension point is designated by the special keywords <code>release control</code>.
+When we move from pseudocode to real python code, we will see actual python keywords that 
+indicate the suspension points.</p>
+<h2 id="were-not-done-yet">We're not done yet<a class="headerlink" href="#were-not-done-yet" title="Permanent link">&para;</a></h2>
+<p>Before we begin discussing python generators and coroutines, we need to solve the problem of
+defining unambiguous syntax for suspendables.</p>
+<h2 id="footnotes">Footnotes<a class="headerlink" href="#footnotes" title="Permanent link">&para;</a></h2>
+<div class="footnote">
+<hr />
+<ol>
+<li id="fn:1">
+<p>Wary readers may already have noticed the ambiguity in the second call to
+<code>mashed_potatoes</code>. How would we differentiate between a resumption of a previously
+suspended run and a second independent run of a suspendable function? This is exactly why
+we had to use pseudocode for our examples. We tackle this question of unambiguous syntax
+and semantics <a href="/suspendables/syntax/">next</a>.&#160;<a class="footnote-backref" href="#fnref:1" title="Jump back to footnote 1 in the text">&#8617;</a></p>
+</li>
+<li id="fn:2">
+<p>David Beazley's <a href="https://www.youtube.com/watch?v=MCs5OvhV9S4">live coding of an event loop</a>
+is highly recommended in spite of the following caveats. Please be aware that this video
+uses an alpha version of Python 3.5 and the old <code>yield from</code> syntax intended for
+<a href="https://docs.python.org/3.10/library/asyncio-task.html#generator-based-coroutines">soon to be deprecated</a>
+generator-based coroutines. Generator-based coroutines are an enormous source of confusion
+as discussed in the <a href="/why-is-it-difficult/#pythons-troubled-history">beginning</a> of this course
+and this course does not describe them for this reason. Further,
+<a href="https://www.python.org/dev/peps/pep-0492/#new-coroutine-declaration-syntax">PEP 492</a> makes it
+illegal to have a <code>yield</code> or <code>yield from</code> within a native coroutine. See this
+<a href="/why-is-it-difficult/#fn:5">footnote</a> to go one step further down into the deep hole.&#160;<a class="footnote-backref" href="#fnref:2" title="Jump back to footnote 2 in the text">&#8617;</a></p>
+</li>
+<li id="fn:3">
+<p>A memory-efficient, boundless iterator (such as Python 3's <code>range</code>) is a common real-world
+example of a suspendable function that does not benefit from an event loop.&#160;<a class="footnote-backref" href="#fnref:3" title="Jump back to footnote 3 in the text">&#8617;</a></p>
+</li>
+<li id="fn:4">
+<p>Unless it's for <a href="https://stackoverflow.com/questions/52783605/how-to-run-a-coroutine-outside-of-an-event-loop">educational purposes</a>.&#160;<a class="footnote-backref" href="#fnref:4" title="Jump back to footnote 4 in the text">&#8617;</a></p>
+</li>
+<li id="fn:5">
+<p>We are purposefully ignoring the existence of generator-based coroutines. See Footnote
+<a href="/suspendables/control/#fn:2">2</a> on this page.&#160;<a class="footnote-backref" href="#fnref:5" title="Jump back to footnote 5 in the text">&#8617;</a></p>
+</li>
+</ol>
+</div>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-09-13T00:38:13+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-09-13</span>
+      
+        <br>
+        Created:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-09-13T00:38:13+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-09-13</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+              
+
+  <!-- Giscus -->
+  <h2 id="__comments">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="ankur-gupta/async-discussions"
+        data-repo-id="R_kgDOH-sr7Q"
+        data-category="Comments"
+        data-category-id="DIC_kwDOH-sr7c4CRYX1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark_dimmed"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+          /* Instruct Giscus to change theme */
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../suspendables/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Suspendables" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Suspendables
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../syntax/" class="md-footer__link md-footer__link--next" aria-label="Next: Syntax" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Syntax
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Ankur Gupta
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/ankur-gupta" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.perfectlyrandom.org" target="_blank" rel="noopener" title="www.perfectlyrandom.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M244 246c-3.2-2-6.3-2.9-10.1-2.9-6.6 0-12.6 3.2-19.3 3.7l1.7 4.9zm135.9 197.9c-19 0-64.1 9.5-79.9 19.8l6.9 45.1c35.7 6.1 70.1 3.6 106-9.8-4.8-10-23.5-55.1-33-55.1zM340.8 177c6.6 2.8 11.5 9.2 22.7 22.1 2-1.4 7.5-5.2 7.5-8.6 0-4.9-11.8-13.2-13.2-23 11.2-5.7 25.2-6 37.6-8.9 68.1-16.4 116.3-52.9 146.8-116.7C548.3 29.3 554 16.1 554.6 2l-2 2.6c-28.4 50-33 63.2-81.3 100-31.9 24.4-69.2 40.2-106.6 54.6l-6.3-.3v-21.8c-19.6 1.6-19.7-14.6-31.6-23-18.7 20.6-31.6 40.8-58.9 51.1-12.7 4.8-19.6 10-25.9 21.8 34.9-16.4 91.2-13.5 98.8-10zM555.5 0l-.6 1.1-.3.9.6-.6zm-59.2 382.1c-33.9-56.9-75.3-118.4-150-115.5l-.3-6c-1.1-13.5 32.8 3.2 35.1-31l-14.4 7.2c-19.8-45.7-8.6-54.3-65.5-54.3-14.7 0-26.7 1.7-41.4 4.6 2.9 18.6 2.2 36.7-10.9 50.3l19.5 5.5c-1.7 3.2-2.9 6.3-2.9 9.8 0 21 42.8 2.9 42.8 33.6 0 18.4-36.8 60.1-54.9 60.1-8 0-53.7-50-53.4-60.1l.3-4.6 52.3-11.5c13-2.6 12.3-22.7-2.9-22.7-3.7 0-43.1 9.2-49.4 10.6-2-5.2-7.5-14.1-13.8-14.1-3.2 0-6.3 3.2-9.5 4-9.2 2.6-31 2.9-21.5 20.1L15.9 298.5c-5.5 1.1-8.9 6.3-8.9 11.8 0 6 5.5 10.9 11.5 10.9 8 0 131.3-28.4 147.4-32.2 2.6 3.2 4.6 6.3 7.8 8.6 20.1 14.4 59.8 85.9 76.4 85.9 24.1 0 58-22.4 71.3-41.9 3.2-4.3 6.9-7.5 12.4-6.9.6 13.8-31.6 34.2-33 43.7-1.4 10.2-1 35.2-.3 41.1 26.7 8.1 52-3.6 77.9-2.9 4.3-21 10.6-41.9 9.8-63.5l-.3-9.5c-1.4-34.2-10.9-38.5-34.8-58.6-1.1-1.1-2.6-2.6-3.7-4 2.2-1.4 1.1-1 4.6-1.7 88.5 0 56.3 183.6 111.5 229.9 33.1-15 72.5-27.9 103.5-47.2-29-25.6-52.6-45.7-72.7-79.9zm-196.2 46.1v27.2l11.8-3.4-2.9-23.8zm-68.7-150.4 24.1 61.2 21-13.8-31.3-50.9zm84.4 154.9 2 12.4c9-1.5 58.4-6.6 58.4-14.1 0-1.4-.6-3.2-.9-4.6-26.8 0-36.9 3.8-59.5 6.3z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/ankurguptawisc" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/ankurio" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.2ab50757.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+    
+  </body>
+</html>

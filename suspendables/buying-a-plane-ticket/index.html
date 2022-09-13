@@ -1,0 +1,1400 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.svg">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.4.4">
+    
+    
+      
+        <title>Buying a plane ticket - Asynchronous Programming in Python</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6b80c2a2.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/timeago.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="green">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#buying-a-plane-ticket" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Asynchronous Programming in Python" class="md-header__button md-logo" aria-label="Asynchronous Programming in Python" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17 3 5.25 4.5L17 12l5.25 4.5L17 21v-3h-2.74l-2.82-2.82 2.12-2.12L15.5 15H17V9h-1.5l-9 9H2v-3h3.26l9-9H17V3M2 6h4.5l2.82 2.82-2.12 2.12L5.26 9H2V6Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Asynchronous Programming in Python
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Buying a plane ticket
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="green" data-md-color-accent="green"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="green" data-md-color-accent="green"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7 0-.24-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91 1.61 0 2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08Z"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/ankur-gupta/async" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ankur-gupta/async
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        Get Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../cooking-is-like-programming/" class="md-tabs__link md-tabs__link--active">
+        Suspendables
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../generators/introduction/" class="md-tabs__link">
+        Generators
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../coroutines/introduction/" class="md-tabs__link">
+        Coroutines
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../review/generators-v-coroutines/" class="md-tabs__link">
+        Review
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Asynchronous Programming in Python" class="md-nav__button md-logo" aria-label="Asynchronous Programming in Python" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17 3 5.25 4.5L17 12l5.25 4.5L17 21v-3h-2.74l-2.82-2.82 2.12-2.12L15.5 15H17V9h-1.5l-9 9H2v-3h3.26l9-9H17V3M2 6h4.5l2.82 2.82-2.12 2.12L5.26 9H2V6Z"/></svg>
+
+    </a>
+    Asynchronous Programming in Python
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/ankur-gupta/async" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    ankur-gupta/async
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Get Started
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Get Started" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Get Started
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../why-is-it-difficult/" class="md-nav__link">
+        Why is it difficult?
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          Suspendables
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Suspendables" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Suspendables
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cooking-is-like-programming/" class="md-nav__link">
+        Cooking is like programming
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Buying a plane ticket
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Buying a plane ticket
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-need-for-asynchronous-programming" class="md-nav__link">
+    The need for asynchronous programming
+  </a>
+  
+    <nav class="md-nav" aria-label="The need for asynchronous programming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serial-synchronous" class="md-nav__link">
+    Serial &amp; synchronous
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-synchronous" class="md-nav__link">
+    Parallel &amp; synchronous
+  </a>
+  
+    <nav class="md-nav" aria-label="Parallel &amp; synchronous">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#there-is-room-for-improvement" class="md-nav__link">
+    There is room for improvement
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-parallel-asynchronous" class="md-nav__link">
+    Not parallel &amp; asynchronous
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-just-theoretical" class="md-nav__link">
+    Not just theoretical
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../suspendables/" class="md-nav__link">
+        Suspendables
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../control/" class="md-nav__link">
+        Control
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../syntax/" class="md-nav__link">
+        Syntax
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../review/" class="md-nav__link">
+        Review
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          Generators
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Generators" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Generators
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generators/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generators/a-better-way-to-drive/" class="md-nav__link">
+        A Better Way to Drive
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generators/generator-class/" class="md-nav__link">
+        Generator Class
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generators/mechanics-by-examples/" class="md-nav__link">
+        Mechanics by Examples
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generators/yield-from/" class="md-nav__link">
+        yield from
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../generators/examples/" class="md-nav__link">
+        Examples
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          Coroutines
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Coroutines" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          Coroutines
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coroutines/introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../coroutines/eventloop/" class="md-nav__link">
+        Event Loop
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_5" type="checkbox" id="__nav_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_5">
+          Review
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Review" data-md-level="1">
+        <label class="md-nav__title" for="__nav_5">
+          <span class="md-nav__icon md-icon"></span>
+          Review
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/generators-v-coroutines/" class="md-nav__link">
+        Generators vs Coroutines
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../review/asynchronous-generator/" class="md-nav__link">
+        Asynchronous Generator
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="On this page">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      On this page
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-need-for-asynchronous-programming" class="md-nav__link">
+    The need for asynchronous programming
+  </a>
+  
+    <nav class="md-nav" aria-label="The need for asynchronous programming">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#serial-synchronous" class="md-nav__link">
+    Serial &amp; synchronous
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallel-synchronous" class="md-nav__link">
+    Parallel &amp; synchronous
+  </a>
+  
+    <nav class="md-nav" aria-label="Parallel &amp; synchronous">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#there-is-room-for-improvement" class="md-nav__link">
+    There is room for improvement
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-parallel-asynchronous" class="md-nav__link">
+    Not parallel &amp; asynchronous
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-just-theoretical" class="md-nav__link">
+    Not just theoretical
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    Summary
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+  
+                
+
+  <a href="https://github.com/ankur-gupta/async/edit/main/docs/suspendables/buying-a-plane-ticket.md" title="Edit this page" class="md-content__button md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+<h1 id="buying-a-plane-ticket">Buying a plane ticket<a class="headerlink" href="#buying-a-plane-ticket" title="Permanent link">&para;</a></h1>
+<p>Let's look at a classic example — network calls. </p>
+<p>Suppose we want to buy a plane ticket. The same plane ticket is available for purchase, albeit at 
+different prices, from three online vendors — Vendor Red, Vendor Green, and Vendor Blue. We need to 
+query each vendor to get the ticket price so as to find the cheapest ticket.</p>
+<p>This classic example is often used to demonstrate the need for asynchronous programming itself.</p>
+<h2 id="the-need-for-asynchronous-programming">The need for asynchronous programming<a class="headerlink" href="#the-need-for-asynchronous-programming" title="Permanent link">&para;</a></h2>
+<h3 id="serial-synchronous">Serial &amp; synchronous<a class="headerlink" href="#serial-synchronous" title="Permanent link">&para;</a></h3>
+<p>We could do this task serially and synchronously — send a request to one server, wait for it to reply, and
+send another request to another server and wait for it to reply and then the same for the third server.
+Now, that we have the prices from all three servers, we can find the lowest price. </p>
+<div class="highlight"><span class="filename">Pseudocode</span><pre><span></span><code><span class="n">function</span> <span class="n">get_price</span><span class="p">(</span><span class="n">vendor</span><span class="p">)</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">create_request</span><span class="p">(</span><span class="n">vendor</span><span class="p">)</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Received price from the vendor </span><span class="si">{</span><span class="n">vendor</span><span class="si">}</span><span class="s1">!&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">result</span>
+
+<span class="n">red_price</span> <span class="o">=</span> <span class="n">get_price</span><span class="p">(</span><span class="n">red</span><span class="p">)</span>  <span class="c1"># Wait 1000ms</span>
+<span class="n">blue_price</span> <span class="o">=</span> <span class="n">get_price</span><span class="p">(</span><span class="n">blue</span><span class="p">)</span>  <span class="c1"># Wait another 300ms</span>
+<span class="n">green_price</span> <span class="o">=</span> <span class="n">get_price</span><span class="p">(</span><span class="n">green</span><span class="p">)</span>  <span class="c1"># Wait yet another 400ms</span>
+
+<span class="n">best_price</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">red_price</span><span class="p">,</span> <span class="n">green_price</span><span class="p">,</span> <span class="n">blue_price</span><span class="p">])</span>
+</code></pre></div>
+<p>This approach is wasteful. The table below shows the times taken by each vendor to reply to 
+our query. No matter how we order the three vendors, serial and synchronous approach is 
+guaranteed to take 1700 ms, which is the sum of the three individual query times.</p>
+<table>
+<thead>
+<tr>
+<th>Vendor</th>
+<th>Query time</th>
+<th>Total time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Red</td>
+<td>1000 ms</td>
+<td></td>
+</tr>
+<tr>
+<td>Green</td>
+<td>300 ms</td>
+<td></td>
+</tr>
+<tr>
+<td>Blue</td>
+<td>400 ms</td>
+<td>1700 ms</td>
+</tr>
+</tbody>
+</table>
+<h3 id="parallel-synchronous">Parallel &amp; synchronous<a class="headerlink" href="#parallel-synchronous" title="Permanent link">&para;</a></h3>
+<p>This approach is similar to the serial &amp; synchronous approach except that we execute the three
+queries parallely. But, each query is still synchronous in the sense that we wait for that 
+query to finish before doing anything downstream.</p>
+<p>Depending on the programming language, we can implement parallelism using either processes and 
+threads. The pseudocode below uses processes. </p>
+<div class="highlight"><span class="filename">Pseudocode</span><pre><span></span><code><span class="n">function</span> <span class="n">get_price</span><span class="p">(</span><span class="n">vendor</span><span class="p">)</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">create_request</span><span class="p">(</span><span class="n">vendor</span><span class="p">)</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Received price from the vendor </span><span class="si">{</span><span class="n">vendor</span><span class="si">}</span><span class="s1">!&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">result</span>
+
+<span class="n">p_red</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">get_price</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">red</span><span class="p">,</span> <span class="p">))</span>
+<span class="n">p_green</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">get_price</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">green</span><span class="p">,</span> <span class="p">))</span>
+<span class="n">p_blue</span> <span class="o">=</span> <span class="n">Process</span><span class="p">(</span><span class="n">get_price</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">blue</span><span class="p">,</span> <span class="p">))</span>
+
+<span class="c1"># Start the processes</span>
+<span class="n">p_red</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">p_green</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+<span class="n">p_blue</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="n">p_red</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>  <span class="c1"># Waits 1000ms</span>
+<span class="n">p_green</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>  <span class="c1"># No wait; we&#39;ve already waited 300ms</span>
+<span class="n">p_blue</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>  <span class="c1"># No wait; we&#39;ve already waited 400ms</span>
+
+<span class="n">red_price</span><span class="p">,</span> <span class="n">green_price</span><span class="p">,</span> <span class="n">blue_price</span> <span class="o">=</span> <span class="n">p_red</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="n">p_green</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="n">p_blue</span><span class="o">.</span><span class="n">result</span>
+<span class="n">best_price</span> <span class="o">=</span> <span class="nb">min</span><span class="p">([</span><span class="n">red_price</span><span class="p">,</span> <span class="n">green_price</span><span class="p">,</span> <span class="n">blue_price</span><span class="p">])</span>
+</code></pre></div>
+<p>All three queries are dispatched at roughly the same time, when we call the corresponding 
+<code>p_vendor&gt;.start()</code> methods. We then wait for the query to Vendor Red to finish first, 
+when we call <code>p_red.join()</code>, which takes 1000ms. During these 1000ms, the queries to Vendors
+Blue and Green, which take 300ms and 400ms respectively, have already finished. So, we don't have 
+to wait on the vendors when we call <code>p_green.join()</code> and <code>p_blue.join()</code>.</p>
+<p>Overall, this approach takes a 1000ms, which is obviously better than the serial &amp; synchronous 
+approach. </p>
+<table>
+<thead>
+<tr>
+<th>Vendor</th>
+<th>Query time</th>
+<th>Total time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Red</td>
+<td>1000 ms</td>
+<td></td>
+</tr>
+<tr>
+<td>Green</td>
+<td>300 ms</td>
+<td></td>
+</tr>
+<tr>
+<td>Blue</td>
+<td>400 ms</td>
+<td>1000 ms</td>
+</tr>
+</tbody>
+</table>
+<p>But, this approach is still on resources. Each process takes separate memory to run. 
+Each process also needs time to be setup. Depending on the machine, we may not have 3 processes to 
+spare. And, in a real-world case, such as for our own Kayak-type website, we may have thousands 
+of queries that need to be run parallely. We don't have a machine that has thousands of processors.
+And, even if we did, creating thousands of processes would have trememdous overhead which would 
+negate any multiprocessing gains. We could use a worker pool of three processes that rotates through
+thousands of queries three at a time. This three-at-a-time parallelism would still take a long 
+time to work through thousands of queries because only three queries would be active at a time.</p>
+<p>Alternatively, we could use threads (within the main process) to implement the parallelism.
+Threads share memory and can be started and ended much faster than processes.</p>
+<p>Obviously, in the default CPython, this would not be truly parallel because the 
+<a href="https://wiki.python.org/moin/GlobalInterpreterLock">Global Interpreter Lock</a>
+only allows one thread to have access to the interpreter at one time. 
+There are different Python implementations that do not have a GIL. 
+<a href="https://wiki.python.org/moin/IronPython">IronPython</a> is one such example. 
+In a GIL-free python implementation, the threads may be able to behave truly parallely. </p>
+<p>Our toy example only needs three threads and would definitely benefit from a GIL-free
+implementation. However, our own Kayak-type website would require thousands of threads,
+which is more efficient than thousands of processes, but is still not efficient enough. 
+Thousands of threads may not even be possible on a machine. We could use a worker pool of 
+three threads that rotates through thousands of queries three at a time. As with processes, 
+this three-at-a-time GIL-free parallelism would still take a long time to work through 
+thousands of queries because only three queries would be active at a time.</p>
+<h4 id="there-is-room-for-improvement">There is room for improvement<a class="headerlink" href="#there-is-room-for-improvement" title="Permanent link">&para;</a></h4>
+<p>Servers have internal latencies and transferring data over the network
+takes time. We don't need to perform a lot of computation, we simply need to receive the price data.
+There is no inherent need to create threads or processes simply to handle the incoming data.
+Before the advent of asychronous programming, we were forced to create multiple threads or 
+processes because there was nothing better available.</p>
+<h3 id="not-parallel-asynchronous">Not parallel &amp; asynchronous<a class="headerlink" href="#not-parallel-asynchronous" title="Permanent link">&para;</a></h3>
+<p>This approach uses a single thread within a single process. We don't have the overhead of 
+creating new threads or processes. The magic here is that we made the <code>get_price</code> function
+suspendable. The pseudocode below has janky syntax. This is purposeful as we will explain in 
+the next section on <a href="/suspendables/syntax/">syntax</a>. For now, we will ignore the syntax issues and 
+focus on how asychronous programming can solve our problem even more efficiently than parallelism.</p>
+<div class="highlight"><span class="filename">Pseudocode</span><pre><span></span><code><span class="n">suspendable</span> <span class="n">function</span> <span class="n">get_price</span><span class="p">(</span><span class="n">vendor</span><span class="p">)</span>
+    <span class="n">request</span> <span class="o">=</span> <span class="n">create_request</span><span class="p">(</span><span class="n">vendor</span><span class="p">)</span>
+    <span class="n">release</span> <span class="n">control</span>  <span class="c1"># suspension/control transfer point</span>
+    <span class="n">request</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;Received price from the vendor </span><span class="si">{</span><span class="n">vendor</span><span class="si">}</span><span class="s1">!&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">request</span><span class="o">.</span><span class="n">result</span>
+
+<span class="c1"># Initiate all requests but don&#39;t wait for them to finish</span>
+<span class="n">get_price</span><span class="p">(</span><span class="n">red</span><span class="p">)</span>
+<span class="n">get_price</span><span class="p">(</span><span class="n">green</span><span class="p">)</span>
+<span class="n">get_price</span><span class="p">(</span><span class="n">blue</span><span class="p">)</span>
+
+<span class="c1"># Resume suspended functions and wait for them to complete</span>
+<span class="n">red_price</span> <span class="o">=</span> <span class="n">get_price</span><span class="p">(</span><span class="n">red</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>  <span class="c1"># Waits 1000ms</span>
+<span class="n">green_price</span> <span class="o">=</span> <span class="n">get_price</span><span class="p">(</span><span class="n">green</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>  <span class="c1"># No wait; we&#39;ve already waited 300ms</span>
+<span class="n">blue_price</span> <span class="o">=</span> <span class="n">get_price</span><span class="p">(</span><span class="n">blue</span><span class="p">)</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>  <span class="c1"># No wait; we&#39;ve already waited 400ms</span>
+
+<span class="nb">min</span><span class="p">([</span><span class="n">red_price</span><span class="p">,</span> <span class="n">green_price</span><span class="p">,</span> <span class="n">blue_price</span><span class="p">])</span>
+
+<span class="c1"># Did you notice the janky syntax in this pseudocode? This is why we need </span>
+<span class="c1"># to answer the syntax question in the next few section.</span>
+</code></pre></div>
+<p>We call <code>get_price</code> three times, once for each of the three vendors. This sends a query to each of 
+the three vendor websites but doesn't immediately wait for the queries to be answered. 
+Once all three queries have been sent, the pseudocode then waits for the queries to be answered 
+in a particular, distinguished order -- it waits for red to finish, then green to finish, and 
+then red to finish. Similar to the parallel &amp; synchronous approach, we only have to wait a 1000ms
+in all.</p>
+<table>
+<thead>
+<tr>
+<th>Vendor</th>
+<th>Query time</th>
+<th>Total time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Red</td>
+<td>1000 ms</td>
+<td></td>
+</tr>
+<tr>
+<td>Green</td>
+<td>300 ms</td>
+<td></td>
+</tr>
+<tr>
+<td>Blue</td>
+<td>400 ms</td>
+<td>1000 ms</td>
+</tr>
+</tbody>
+</table>
+<p>Asynchronous approach is just as fast as the parallel &amp; synchronous approach. But, asynchronous 
+approach can handle thousands of queries within the same thread and the same process. 
+Even if we had a thousand queries, we could start all of the queries nearly simultaneously
+without waiting for them to finish.  Finally, let's not forget that we could still use
+process-based parallelism along side asychronous programming.</p>
+<h3 id="not-just-theoretical">Not just theoretical<a class="headerlink" href="#not-just-theoretical" title="Permanent link">&para;</a></h3>
+<p><a href="https://stackoverflow.com/questions/12924124/why-would-i-choose-a-threaded-process-based-approach-vs-asynchronous-web-server">Nginx vs Apache</a>
+provides a real-world, industrial-strength example where asynchronous programming outperforms 
+parallelism via multithreading.</p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Time</th>
+<th>Processes</th>
+<th>Threads</th>
+<th>Limited by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Serial &amp; Synchronous</td>
+<td>1700 ms</td>
+<td>1</td>
+<td>1</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Parallel &amp; Synchronous (Processes)</td>
+<td>1000 ms</td>
+<td>1 + 3</td>
+<td>1 / process</td>
+<td>processor count</td>
+</tr>
+<tr>
+<td>Parallel &amp; Synchronous (Threads, GIL-free)</td>
+<td>1000 ms</td>
+<td>1</td>
+<td>1 + 3</td>
+<td>processor count</td>
+</tr>
+<tr>
+<td>Asychronous</td>
+<td>1000 ms</td>
+<td>1</td>
+<td>1</td>
+<td>network bandwidth</td>
+</tr>
+</tbody>
+</table>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      Last update:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-09-13T00:38:13+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-09-13</span>
+      
+        <br>
+        Created:
+        <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-timeago"><span class="timeago" datetime="2022-09-13T00:38:13+00:00" locale="en"></span></span><span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-iso_date">2022-09-13</span>
+      
+    
+  </small>
+</div>
+
+
+
+
+
+              
+
+  <!-- Giscus -->
+  <h2 id="__comments">Comments</h2>
+  <script src="https://giscus.app/client.js"
+        data-repo="ankur-gupta/async-discussions"
+        data-repo-id="R_kgDOH-sr7Q"
+        data-category="Comments"
+        data-category-id="DIC_kwDOH-sr7c4CRYX1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="top"
+        data-theme="dark_dimmed"
+        data-lang="en"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+  <!-- Synchronize Giscus theme with palette -->
+  <script>
+    var giscus = document.querySelector("script[src*=giscus]")
+
+    /* Set palette on initial load */
+    var palette = __md_get("__palette")
+    if (palette && typeof palette.color === "object") {
+      var theme = palette.color.scheme === "slate" ? "dark" : "light"
+      giscus.setAttribute("data-theme", theme) 
+    }
+
+    /* Register event handlers after documented loaded */
+    document.addEventListener("DOMContentLoaded", function() {
+      var ref = document.querySelector("[data-md-component=palette]")
+      ref.addEventListener("change", function() {
+        var palette = __md_get("__palette")
+        if (palette && typeof palette.color === "object") {
+          var theme = palette.color.scheme === "slate" ? "dark" : "light"
+
+          /* Instruct Giscus to change theme */
+          var frame = document.querySelector(".giscus-frame")
+          frame.contentWindow.postMessage(
+            { giscus: { setConfig: { theme } } },
+            "https://giscus.app"
+          )
+        }
+      })
+    })
+  </script>
+
+            </article>
+            
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../cooking-is-like-programming/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Cooking is like programming" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Cooking is like programming
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../suspendables/" class="md-footer__link md-footer__link--next" aria-label="Next: Suspendables" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Suspendables
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; Ankur Gupta
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/ankur-gupta" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.perfectlyrandom.org" target="_blank" rel="noopener" title="www.perfectlyrandom.org" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M244 246c-3.2-2-6.3-2.9-10.1-2.9-6.6 0-12.6 3.2-19.3 3.7l1.7 4.9zm135.9 197.9c-19 0-64.1 9.5-79.9 19.8l6.9 45.1c35.7 6.1 70.1 3.6 106-9.8-4.8-10-23.5-55.1-33-55.1zM340.8 177c6.6 2.8 11.5 9.2 22.7 22.1 2-1.4 7.5-5.2 7.5-8.6 0-4.9-11.8-13.2-13.2-23 11.2-5.7 25.2-6 37.6-8.9 68.1-16.4 116.3-52.9 146.8-116.7C548.3 29.3 554 16.1 554.6 2l-2 2.6c-28.4 50-33 63.2-81.3 100-31.9 24.4-69.2 40.2-106.6 54.6l-6.3-.3v-21.8c-19.6 1.6-19.7-14.6-31.6-23-18.7 20.6-31.6 40.8-58.9 51.1-12.7 4.8-19.6 10-25.9 21.8 34.9-16.4 91.2-13.5 98.8-10zM555.5 0l-.6 1.1-.3.9.6-.6zm-59.2 382.1c-33.9-56.9-75.3-118.4-150-115.5l-.3-6c-1.1-13.5 32.8 3.2 35.1-31l-14.4 7.2c-19.8-45.7-8.6-54.3-65.5-54.3-14.7 0-26.7 1.7-41.4 4.6 2.9 18.6 2.2 36.7-10.9 50.3l19.5 5.5c-1.7 3.2-2.9 6.3-2.9 9.8 0 21 42.8 2.9 42.8 33.6 0 18.4-36.8 60.1-54.9 60.1-8 0-53.7-50-53.4-60.1l.3-4.6 52.3-11.5c13-2.6 12.3-22.7-2.9-22.7-3.7 0-43.1 9.2-49.4 10.6-2-5.2-7.5-14.1-13.8-14.1-3.2 0-6.3 3.2-9.5 4-9.2 2.6-31 2.9-21.5 20.1L15.9 298.5c-5.5 1.1-8.9 6.3-8.9 11.8 0 6 5.5 10.9 11.5 10.9 8 0 131.3-28.4 147.4-32.2 2.6 3.2 4.6 6.3 7.8 8.6 20.1 14.4 59.8 85.9 76.4 85.9 24.1 0 58-22.4 71.3-41.9 3.2-4.3 6.9-7.5 12.4-6.9.6 13.8-31.6 34.2-33 43.7-1.4 10.2-1 35.2-.3 41.1 26.7 8.1 52-3.6 77.9-2.9 4.3-21 10.6-41.9 9.8-63.5l-.3-9.5c-1.4-34.2-10.9-38.5-34.8-58.6-1.1-1.1-2.6-2.6-3.7-4 2.2-1.4 1.1-1 4.6-1.7 88.5 0 56.3 183.6 111.5 229.9 33.1-15 72.5-27.9 103.5-47.2-29-25.6-52.6-45.7-72.7-79.9zm-196.2 46.1v27.2l11.8-3.4-2.9-23.8zm-68.7-150.4 24.1 61.2 21-13.8-31.3-50.9zm84.4 154.9 2 12.4c9-1.5 58.4-6.6 58.4-14.1 0-1.4-.6-3.2-.9-4.6-26.8 0-36.9 3.8-59.5 6.3z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/in/ankurguptawisc" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+    </a>
+  
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/ankurio" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "search.suggest", "search.highlight", "search.share"], "search": "../../assets/javascripts/workers/search.ecf98df9.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.2ab50757.min.js"></script>
+      
+        <script src="../../js/timeago.min.js"></script>
+      
+        <script src="../../js/timeago_mkdocs_material.js"></script>
+      
+    
+  </body>
+</html>
